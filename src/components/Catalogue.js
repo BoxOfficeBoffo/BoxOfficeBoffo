@@ -6,6 +6,7 @@ import DisplayCatalogue from './DisplayCatalogue';
 const Catalogue = () => {
 
   const [userInput, setUserInput] = useState();
+  const [userInputYear, setUserInputYear] = useState();
 
   const [ movies, setMovies ] = useState([]);
 
@@ -20,21 +21,22 @@ const Catalogue = () => {
         include_adult: 'false',
         include_video: 'false',
         page: 1,
-        primary_release_year: 2010,
+        primary_release_year: `${userInputYear}`,
       }
     }).then((res) => {
-      console.log(res.data.results)
       setMovies(res.data.results);
-
+      console.log(res.data.results)
     })
-  }, []);
+  }, [userInputYear]);
 
   const handleChange = (e) => {
     setUserInput(e.target.value);
   }
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+    setUserInputYear(userInput);
+    console.log(userInput);
   }
 
   return (
@@ -51,6 +53,8 @@ const Catalogue = () => {
           <button type="submit">Enter</button>
         </form>
       </div>
+
+      <DisplayCatalogue movies={movies}/>
     </>
   )
 }
