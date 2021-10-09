@@ -1,10 +1,17 @@
 import './App.css';
+import Catalogue from './components/Catalogue.js';
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-      <h2>Movies?!?!?!?</h2>
-    </div>
+    <Router>
+      <div className="App">
+        <h2>Movies?!?!?!?</h2>
+        <Route exact path="/">
+          <Catalogue />
+        </Route>
+      </div>
+    </Router>
   );
 }
 
