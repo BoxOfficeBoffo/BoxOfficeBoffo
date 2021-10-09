@@ -26,9 +26,6 @@ const Catalogue = () => {
         }
       }).then((res) => {
         setMovies(res.data.results);
-        // console.log(res.data.results)
-        setUserInputYear();
-        DisplayCatalogue(res.data.results);
       })
     }
 
@@ -43,7 +40,6 @@ const Catalogue = () => {
 
     setUserInputYear(userInput);
     setUserInput("")
-    // console.log(userInput);
   }
 
   return (
@@ -60,6 +56,11 @@ const Catalogue = () => {
           <button type="submit">Enter</button>
         </form>
       </div>
+      
+      {userInputYear? 
+        <DisplayCatalogue theMovies={movies} year={userInputYear} />
+        : null
+      }
     </>
   )
 }
