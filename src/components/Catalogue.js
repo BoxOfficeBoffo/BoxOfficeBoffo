@@ -17,7 +17,7 @@ const Catalogue = () => {
       params: {
         api_key: 'da4fdac82c009adaed8ec1f39b233b93',
         language: 'en-US',
-        sort_by: 'original_title.asc',
+        sort_by: 'release_date',
         include_adult: 'false',
         include_video: 'false',
         page: 1,
@@ -25,7 +25,7 @@ const Catalogue = () => {
       }
     }).then((res) => {
       setMovies(res.data.results);
-      console.log(res.data.results)
+      // console.log(res.data.results)
     })
   }, [userInputYear]);
 
@@ -35,8 +35,10 @@ const Catalogue = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setUserInputYear(userInput);
-    console.log(userInput);
+    setUserInput("")
+    // console.log(userInput);
   }
 
   return (
@@ -53,8 +55,11 @@ const Catalogue = () => {
           <button type="submit">Enter</button>
         </form>
       </div>
-
-      <DisplayCatalogue movies={movies}/>
+      {
+        userInputYear ?
+        <DisplayCatalogue movies={movies}/> :
+        null
+      }
     </>
   )
 }
