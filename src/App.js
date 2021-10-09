@@ -5,8 +5,10 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 function App() {
   return (
     <Router>
-      <div className="App">
-        <h2>Movies?!?!?!?</h2>
+      <header>
+        <h1>MOVIES</h1>
+      </header>
+      <div className="wrapper">
         <Route exact path="/">
           <Catalogue />
         </Route>

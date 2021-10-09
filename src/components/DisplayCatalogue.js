@@ -1,12 +1,11 @@
-// import { useState } from "react"
 
 const DisplayCatalogue = (props) => {
     
-    console.log(props.movies);
-    const movies = props.movies;
+    console.log(props);
+    const movies = props;
 
     return (
-        <div className="displayCatalogue">
+        <div className="displayCatalogue wrapper">
             <ul>
                 {
                 movies.map( (individualMovie) => {                  

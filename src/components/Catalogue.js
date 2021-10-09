@@ -12,21 +12,26 @@ const Catalogue = () => {
 
   useEffect(() => {
 
-    axios({
-      url: 'https://api.themoviedb.org/3/discover/movie',
-      params: {
-        api_key: 'da4fdac82c009adaed8ec1f39b233b93',
-        language: 'en-US',
-        sort_by: 'release_date',
-        include_adult: 'false',
-        include_video: 'false',
-        page: 1,
-        primary_release_year: `${userInputYear}`,
-      }
-    }).then((res) => {
-      setMovies(res.data.results);
-      // console.log(res.data.results)
-    })
+    if (userInputYear) {
+      axios({
+        url: 'https://api.themoviedb.org/3/discover/movie',
+        params: {
+          api_key: 'da4fdac82c009adaed8ec1f39b233b93',
+          language: 'en-US',
+          sort_by: 'release_date',
+          include_adult: 'false',
+          include_video: 'false',
+          page: 1,
+          primary_release_year: `${userInputYear}`,
+        }
+      }).then((res) => {
+        setMovies(res.data.results);
+        // console.log(res.data.results)
+        setUserInputYear();
+        DisplayCatalogue(res.data.results);
+      })
+    }
+
   }, [userInputYear]);
 
   const handleChange = (e) => {
@@ -43,7 +48,7 @@ const Catalogue = () => {
 
   return (
     <>
-      <div className="catalogueForm">
+      <div className="catalogueForm wrapper">
         <form onSubmit={handleSubmit}>
           <label htmlFor="yearInput">Choose a year:</label>
           <input
@@ -55,11 +60,6 @@ const Catalogue = () => {
           <button type="submit">Enter</button>
         </form>
       </div>
-      {
-        userInputYear ?
-        <DisplayCatalogue movies={movies}/> :
-        null
-      }
     </>
   )
 }
