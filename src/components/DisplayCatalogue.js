@@ -1,7 +1,7 @@
 
 const DisplayCatalogue = (apiData) => {
 
-    console.log(apiData.theMovies);
+    // console.log(apiData.theMovies, "api data");
     const movies = apiData.theMovies;
     const year = apiData.year;
     
