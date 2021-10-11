@@ -1,27 +1,30 @@
-import realtime from '../firebase.js';
-import {ref, onValue} from 'firebase/database';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import DisplayCatalogue from './DisplayCatalogue';
+import realtime from '../firebase.js';
+import { ref, onValue, push, remove, update } from 'firebase/database';
 
 const Catalogue = () => {
 
   const [userInput, setUserInput] = useState("");
-  const [ movies, setMovies ] = useState([]);
+  const [movies, setMovies] = useState([]);
 
-  //set state for selected movies
-  const [movieChoice, setMovieChoice] = useState([]);
+    //set state for selected movies
+    const [movieList, setMovieList] = useState([]);
 
-  
+
+
+
+
   const handleChange = (e) => {
     setUserInput(e.target.value);
   }
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     //moved axios into handleSubmit function because after lots of attempts, it doesn't make sense to have in a useEffect.  We only want to call the api when the handleSubmit button is clicked (not when anything new is rendered on page). 
     // if (userInput) {
-      axios({
+    axios({
       url: 'https://api.themoviedb.org/3/discover/movie',
       params: {
         api_key: 'da4fdac82c009adaed8ec1f39b233b93',
@@ -54,10 +57,7 @@ const Catalogue = () => {
       setMovies(shuffledResult);
       console.log(res.data.results, "res");
     })
-    // }
-    // setUserInput("")
   }
-  
 
   //Connect firebase
   useEffect(() => {
@@ -65,17 +65,18 @@ const Catalogue = () => {
     onValue(dbRef, (snapshot) => {
       const myData = snapshot.val();
       const newArray = [];
+      console.log(snapshot.val(), "snapshot")
       for (let property in myData) {
-        const selectedMovie = {
+        const movieObject = {
           key: property,
+          }
+          newArray.push(movieObject);
         }
-        newArray.push(selectedMovie);
-      }
-      setMovieChoice(newArray);
+      setMovieList(newArray);
     })
   }, [])
 
-  
+
   return (
     <>
       <div className="catalogueForm wrapper">
@@ -90,10 +91,10 @@ const Catalogue = () => {
           <button type="submit">Enter</button>
         </form>
       </div>
-      
+
       {/* {userInput?  */}
-        <DisplayCatalogue theMovies={movies} year={userInput} />
-        {/* : null */}
+      <DisplayCatalogue theMovies={movies} year={userInput} />
+      {/* : null */}
       {/* } */}
     </>
   )
