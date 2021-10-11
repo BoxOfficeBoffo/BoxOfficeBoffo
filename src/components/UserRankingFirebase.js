@@ -1,32 +1,13 @@
 import realtime from '../firebase.js';
-import { ref, onValue } from 'firebase/database';
-import { useEffect, useState } from 'react';
+import { ref, child, set } from 'firebase/database';
 
-const UserRankingList = () => {
+const UserRankingList = (array, userName, listName) => {
+    const movies = [...array];
+    //creates the reference to the realtime database
     const dbRef = ref(realtime);
-    const [movieRankingList, setMovieRankingList] = useState([]);
-
-    useEffect( () => {
-        onValue(dbRef, (snapshot) => {
-            const data = snapshot.val();
-            const userList = [];
-            console.log(data);
-            for (let users in data) {
-                userList.push(users)
-            }
-            console.log(userList);
-
-            // snapshot.forEach((childSnapshot) => {
-            //     const myData = childSnapshot.val();
-            //     console.log(myData);
-            //     const newArray = [];
-            // });
-        });
-    }, []);
-    
-    return(
-        <h5>This is a sentence</h5>
-    )
+    //variable with reference to the specified relative path
+    const userListRef = child(dbRef, `${userName}/${listName}`)
+    set(userListRef, movies);
 }
 
 export default UserRankingList;
