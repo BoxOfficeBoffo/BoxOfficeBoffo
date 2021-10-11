@@ -33,7 +33,7 @@ const UserRankingList = () => {
 
     let allSelection = ["0", "0", "0", "0", "0"];
     let userName = "Pink";
-    let listName = "2016 Blockbuster";
+    let listName = "2017 Blockbuster";
     // const [error, setError] = useState("");
     const [showList, setShowList] = useState(false);
 

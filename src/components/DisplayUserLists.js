@@ -1,10 +1,11 @@
 import realtime from '../firebase.js';
 import { ref, child, onValue } from 'firebase/database';
 import { useEffect, useState } from 'react';
+import DisplayMovieInfo from './DisplayMovieInfo.js';
 
 const DisplayUserLists = (props) => {
     const [userList, setUserList] = useState([]);
-    const [movieList, setMovieList] = useState([]);
+    // const [movieList, setMovieList] = useState([]);
     // console.log(props);
 
     useEffect(() => {
@@ -23,30 +24,7 @@ const DisplayUserLists = (props) => {
                 }
                 userListNames.push(userListObject);
             }
-
-            if (userListNames.length > 0) {
-                setUserList(userListNames);
-                for (let i = 0; i < userListNames.length; i++) {
-                    const userMovieListRef = child(dbRef, `${userName}/${userListNames[i].title}`);
-                    onValue(userMovieListRef, (snapshot) => {
-                        const stuff = snapshot.val();
-                        const movieInfo = []
-                        // console.log(stuff);
-                        for (let stuffProps in stuff) {
-                            const movieInfoObject = {
-                                key: stuffProps,
-                                title: stuff[stuffProps].title,
-                                poster: stuff[stuffProps].photo,
-                                rank: stuff[stuffProps].rank
-                            }
-                            // console.log(stuff[stuffProps]);
-                            movieInfo.push(movieInfoObject);
-                        }
-                        // console.log(movieInfo);
-                        setMovieList(movieInfo);
-                    })
-                }
-            }
+            setUserList(userListNames);
         });
 
     }, []);
@@ -60,17 +38,9 @@ const DisplayUserLists = (props) => {
                     return (
                         <div key={individualList.key}>
                             <h5>{individualList.title}</h5>
-                            {
-                                movieList.map((individualMovie) => {
-                                    return (
-                                        <div key={individualMovie.key}>
-                                            <p>{individualMovie.title}</p>
-                                            <p>{individualMovie.rank}</p>
-                                        </div>
-                                    )
-                                })
-                            }
 
+                            <DisplayMovieInfo listName={individualList.title} userName={props.user}/>
+                            <button>Delete</button>
                         </div>
                     )
                 })
