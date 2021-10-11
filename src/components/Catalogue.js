@@ -4,16 +4,16 @@ import DisplayCatalogue from './DisplayCatalogue';
 import realtime from '../firebase.js';
 import { ref, onValue } from 'firebase/database';
 
+let submittedYear = ""
 const Catalogue = () => {
-
+  //set state for year(userInput)
   const [userInput, setUserInput] = useState("");
+  //set state for all movies from API search
   const [movies, setMovies] = useState([]);
-
-    //set state for selected movies
-    const [movieList, setMovieList] = useState([]);
-
-
-
+  //set state for selected movies
+  const [movieList, setMovieList] = useState([]);
+  //selected movies state
+  const [selectedMovies, setSelectedMovies] = useState([])
 
 
   const handleChange = (e) => {
@@ -22,6 +22,7 @@ const Catalogue = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    submittedYear = userInput
     //moved axios into handleSubmit function because after lots of attempts, it doesn't make sense to have in a useEffect.  We only want to call the api when the handleSubmit button is clicked (not when anything new is rendered on page). 
     // if (userInput) {
     axios({
@@ -57,7 +58,42 @@ const Catalogue = () => {
       setMovies(shuffledResult);
       console.log(res.data.results, "res");
     })
+    //empty user selection when they they submit a new search.
+    setSelectedMovies([]);
   }
+
+  //when user selects a movie this function will be called. 
+  //It will add the selected movie to the state "selectedMovies". 
+  //If the movie has already been selected, it will be removed.
+  const handleSelectMovie = (id, title, poster) => {
+    //findIndex returns the index of the first element in the array that satisfies condition
+    const selectedMovieIndex = selectedMovies.findIndex((element) => element.id == id)
+    //if the selected movie is already in the list, remove the selected movie.
+    if (selectedMovieIndex >= 0) {
+        //did not render until .slice() was added.  Slice gets a copy of the array by value. React only renders when state is explicitly set. without slice(), it was changing it in place and not rendering because it was a copy by reference, not value.
+        const movieArray = selectedMovies.slice();
+        movieArray.splice(selectedMovieIndex, 1);
+        setSelectedMovies(movieArray);
+        console.log(movieArray, "movieArray");
+    } else {
+        //Object that will get added to state []
+        //This will only let the user choose 10 movies per list.
+        if (selectedMovies.length <= 9) {
+            const selectedMovie = {
+                id: `${id}`,
+                title: `${title}`,
+                poster_path: `${poster}`
+            }
+            const movieArray = selectedMovies.slice();
+            movieArray.push(selectedMovie);
+            setSelectedMovies(movieArray);
+            console.log(movieArray, "movieArray");
+        } else {
+            alert("You have selected 10 movies! Click next if you are ready.")
+        }
+    }
+    // console.log(selectedMovies, "selectedMovieArray");
+}
 
   //Create the subscrtiption(link) to firebase and will update anytime a value changes
   useEffect(() => {
@@ -72,9 +108,9 @@ const Catalogue = () => {
         const movieListObject = {
           key: property,
           movieList: userInfo[property]
-          }
-          newArray.push(movieListObject);
         }
+        newArray.push(movieListObject);
+      }
       setMovieList(newArray);
       console.log(newArray, "movie")
     })
@@ -96,10 +132,14 @@ const Catalogue = () => {
         </form>
       </div>
 
-      {/* {userInput?  */}
-      <DisplayCatalogue theMovies={movies} year={userInput} />
-      {/* : null */}
-      {/* } */}
+      {/* add ternary */}
+      <DisplayCatalogue
+        selectedMovies={selectedMovies}
+        handleSelectMovie={(id, title, poster) => handleSelectMovie(id, title, poster)}
+        theMovies={movies}
+        year={submittedYear}
+      />
+
     </>
   )
 }
