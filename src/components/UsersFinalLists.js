@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react/cjs/react.development';
 import realtime from '../firebase.js';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, child } from 'firebase/database';
 
 const UsersFinalList = () => {
 
@@ -36,42 +36,63 @@ const UsersFinalList = () => {
 
             // Empty array for the notes object
             const newArray = [];
-                // 'For in' loop to gain access to all objects in the array
-        
-            for (let propName in myData) {
-              // Save the loop in a new variable
-                const listsObject = {
-                    key: propName,
-                    list: myData[propName]
-                }
+
+            const userInfo = myData.users.jam;
+            console.log(userInfo);
+            //    // 'For in' loop to gain access to all objects in the array
+            //     for (let propName in myData) {
+            //   // Save the loop in a new variable
+            //     console.log(propName);
+            //     const listsObject = {
+            //         // key: propName,
+            //         list: myData[propName]
+            //     }
             
-                // Push all new input on to the notesObject onto the Array
-                newArray.push(listsObject)
-                }
-            // Passing our state the array
-            setMovieLists(newArray);
+            //     // Push all new input on to the notesObject onto the Array
+            //     newArray.push(listsObject)
+            //     }
+            // // Passing our state the array
+            // setMovieLists(newArray);
             });
-    }, [])
+    }, [moviesLists])
 
 
     return (
         <div>
             <p>Tis a fake!</p>
             <ul>
+                {/* return (
+                    {userList.map((user, index) => {
+                        return (
+                            <li> {user}
+                                {userList.map((subLists, sIndex) => {
+                                    return (
+                                        <li> {subLists}</li> 
+                                    )}
+                                )};
+                            </li>
+                            )
+                        }
+                    )}
+                ) */}
+                    {/* {userList.map((user) => (
+                    <li>{user}</li>
+                ))} */}
+
+
                 {
                     moviesLists.map((eachList) => {
                         return (
-                            <li key={eachList.key}>
+                            <li>
                                 <p>{eachList.list}</p>
                             </li>
                         )
                     })
                 }
-
+                
             </ul>
         </div>
     )
-
 }
 
 
