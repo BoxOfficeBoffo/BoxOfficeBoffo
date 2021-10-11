@@ -16,25 +16,31 @@ const DisplayUserLists = (props) => {
         const userListRef = child(dbRef, userName)
         onValue(userListRef, (snapshot) => {
             const rankingList = snapshot.val();
-            // console.log(rankingList);
             for (let propertyName in rankingList) {
-                userListNames.push(propertyName);
-                // console.log(rankingList[propertyName]);
-                // count++;
+                const userListObject = {
+                    key: propertyName,
+                    title: propertyName
+                }
+                userListNames.push(userListObject);
             }
 
-            // console.log(userListNames.length, userListNames)
             if (userListNames.length > 0) {
                 setUserList(userListNames);
                 for (let i = 0; i < userListNames.length; i++) {
-                    const userMovieListRef = child(dbRef, `${userName}/${userListNames[i]}`);
+                    const userMovieListRef = child(dbRef, `${userName}/${userListNames[i].title}`);
                     onValue(userMovieListRef, (snapshot) => {
                         const stuff = snapshot.val();
                         const movieInfo = []
                         // console.log(stuff);
                         for (let stuffProps in stuff) {
+                            const movieInfoObject = {
+                                key: stuffProps,
+                                title: stuff[stuffProps].title,
+                                poster: stuff[stuffProps].photo,
+                                rank: stuff[stuffProps].rank
+                            }
                             // console.log(stuff[stuffProps]);
-                            movieInfo.push(stuff[stuffProps].title);
+                            movieInfo.push(movieInfoObject);
                         }
                         // console.log(movieInfo);
                         setMovieList(movieInfo);
@@ -51,15 +57,16 @@ const DisplayUserLists = (props) => {
             <h2>Here are your lists: </h2>
             {
                 userList.map((individualList) => {
-                    return(
-                        <div>
-                            <h5>{individualList}</h5>
+                    return (
+                        <div key={individualList.key}>
+                            <h5>{individualList.title}</h5>
                             {
                                 movieList.map((individualMovie) => {
-                                    return(
-                                        <>
-                                            <p>{individualMovie}</p>
-                                        </>
+                                    return (
+                                        <div key={individualMovie.key}>
+                                            <p>{individualMovie.title}</p>
+                                            <p>{individualMovie.rank}</p>
+                                        </div>
                                     )
                                 })
                             }
