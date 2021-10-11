@@ -1,28 +1,22 @@
 import realtime from '../firebase.js';
-import { ref, push, onValue, remove, update, child, set } from 'firebase/database';
+import { ref, child, set } from 'firebase/database';
 import { useEffect, useState } from 'react';
 
 const DisplayCatalogue = (apiData) => {
     // console.log(apiData.theMovies, "api data");
     const movies = apiData.theMovies;
     const year = apiData.year;
-    console.log(movies, 'movies')
-
+    // console.log(movies, 'movies')
     const [selectedMovies, setSelectedMovies] = useState([])
-    
     const handleSubmitMovieList = () => {
     const user = "jam"
-    const listName = "2010 Blockbuster bizzz"
+    const listName = "2015 Blockbuster"
     //creates the reference to the realtime database
     const dbRef = ref(realtime);
     //variable with reference to the specified relative path
     const userListRef = child(dbRef, `users/${user}/${listName}`)
-
     set(userListRef, selectedMovies);
     }
-    // const updates = {};
-    // updates['/xx/' + "t"] = "sdfs";
-    // update(dbRef, updates);
 
 
     const handleSelectMovie = (id, title, poster) => {

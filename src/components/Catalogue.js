@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import DisplayCatalogue from './DisplayCatalogue';
 import realtime from '../firebase.js';
-import { ref, onValue, push, remove, update } from 'firebase/database';
+import { ref, onValue } from 'firebase/database';
 
 const Catalogue = () => {
 
@@ -59,20 +59,24 @@ const Catalogue = () => {
     })
   }
 
-  //Connect firebase
+  //Create the subscrtiption(link) to firebase and will update anytime a value changes
   useEffect(() => {
     const dbRef = ref(realtime);
     onValue(dbRef, (snapshot) => {
       const myData = snapshot.val();
       const newArray = [];
       console.log(snapshot.val(), "snapshot")
-      for (let property in myData) {
-        const movieObject = {
+      const userInfo = myData.users.jam;
+      for (let property in userInfo) {
+        console.log(property);
+        const movieListObject = {
           key: property,
+          movieList: userInfo[property]
           }
-          newArray.push(movieObject);
+          newArray.push(movieListObject);
         }
       setMovieList(newArray);
+      console.log(newArray, "movie")
     })
   }, [])
 
