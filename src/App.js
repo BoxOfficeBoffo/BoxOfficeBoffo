@@ -1,6 +1,7 @@
 import './App.css';
 import Catalogue from './components/Catalogue.js';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import ResultsPage from './components/ResultsPage';
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
           <Catalogue />
         </Route>
       </div>
+      {/* REMEMBER TO REMOVE */}
+      <Route path="/resultspage">
+        <ResultsPage />
+      </Route>
     </Router>
   );
 }
