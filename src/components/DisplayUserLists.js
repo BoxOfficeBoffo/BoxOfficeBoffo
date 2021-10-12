@@ -5,18 +5,17 @@ import DisplayMovieInfo from './DisplayMovieInfo.js';
 
 const DisplayUserLists = (props) => {
     const [userList, setUserList] = useState([]);
-    // const [movieList, setMovieList] = useState([]);
-    // console.log(props);
+    const userName = props.user;
 
     useEffect(() => {
-        const userName = props.user;
         //creates the reference to the realtime database
         const dbRef = ref(realtime);
-        //variable with reference to the specified relative path
         const userListNames = [];
+        // Firebase refereance path
         const userListRef = child(dbRef, userName)
         onValue(userListRef, (snapshot) => {
             const rankingList = snapshot.val();
+            // Get the name of ALL lists created by user
             for (let propertyName in rankingList) {
                 const userListObject = {
                     key: propertyName,
@@ -30,21 +29,20 @@ const DisplayUserLists = (props) => {
     }, []);
 
     return (
-        // double map
         <div className="displayUserLists">
             <h2>Here are your lists: </h2>
-            {
-                userList.map((individualList) => {
-                    return (
-                        <div key={individualList.key}>
-                            <h5>{individualList.title}</h5>
-
-                            <DisplayMovieInfo listName={individualList.title} userName={props.user}/>
-                            <button>Delete</button>
-                        </div>
-                    )
-                })
-            }
+            <ul>
+                {
+                    userList.map((individualList) => {
+                        return (
+                            <li key={individualList.key}>
+                                {/* Send the list name to DisplayMovieInfo component */}
+                                <DisplayMovieInfo listName={individualList.title} userName={userName}/>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
         </div>
     )
 }
