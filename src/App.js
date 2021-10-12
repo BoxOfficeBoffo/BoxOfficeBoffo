@@ -1,11 +1,7 @@
 import './App.css';
 import Catalogue from './components/Catalogue.js';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-<<<<<<< HEAD
-import ResultsPage from './components/ResultsPage';
-=======
 import UserRankingList from './components/UserRankingList';
->>>>>>> 5b88bd47b90fa6a44b1cb9aee7fd3dbee7820c22
 
 function App() {
   return (
@@ -18,15 +14,7 @@ function App() {
         <Route exact path="/">
           <Catalogue />
         </Route>
-<<<<<<< HEAD
-      </div>
-      {/* REMEMBER TO REMOVE */}
-      <Route path="/resultspage">
-        <ResultsPage />
-      </Route>
-=======
       </div> */}
->>>>>>> 5b88bd47b90fa6a44b1cb9aee7fd3dbee7820c22
     </Router>
   );
 }

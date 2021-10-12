@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useEffect, useState } from 'react';
-=======
 import { useState, useEffect } from 'react';
->>>>>>> 5b88bd47b90fa6a44b1cb9aee7fd3dbee7820c22
 import axios from 'axios';
 import DisplayCatalogue from './DisplayCatalogue';
 import realtime from '../firebase.js';
