@@ -3,6 +3,7 @@ import Catalogue from './components/Catalogue.js';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 import UserRankingList from './components/UserRankingList';
 
+
 function App() {
   return (
     <Router>
@@ -14,7 +15,6 @@ function App() {
         <Route exact path="/">
           <Catalogue />
         </Route>
-      </div> */}
     </Router>
   );
 }
