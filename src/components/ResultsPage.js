@@ -17,7 +17,7 @@ const ResultsPage = () => {
                 include_adult: 'false',
                 include_video: 'false',
                 page: 1,
-                primary_release_year: 1940,
+                primary_release_year: 2001,
             }
         }).then((res) => {
             console.log(res.data.results);
