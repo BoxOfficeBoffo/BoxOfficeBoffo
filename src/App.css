@@ -38,7 +38,9 @@ li {
   margin: 0 auto;
 }
 
-
+.selected {
+  border: 5px solid #FBD400;
+}
 
 /* 
 HEADER STLYES
