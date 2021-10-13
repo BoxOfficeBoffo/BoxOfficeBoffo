@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import DisplayCatalogue from './DisplayCatalogue';
-import realtime from '../firebase.js';
-import { ref, onValue } from 'firebase/database';
 import UserRankingList from './UserRankingList';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -14,12 +12,10 @@ const Catalogue = () => {
 
   // Firebase Auth
   const auth = getAuth();
-  let userName;
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setSignedIn(true)
-        userName = user.uid;
       } else {
         setSignedIn(false)
       }
@@ -39,11 +35,6 @@ const Catalogue = () => {
   const [showSortPage, setShowSortPage] = useState(false)
 
 
-
-
-  // const user = userName
-  // const listName = `${year} Blockbuster`
-
   const handleChange = (e) => {
     setUserInput(e.target.value);
   }
@@ -52,7 +43,6 @@ const Catalogue = () => {
     e.preventDefault();
     submittedYear = userInput
     //moved axios into handleSubmit function because after lots of attempts, it doesn't make sense to have in a useEffect.  We only want to call the api when the handleSubmit button is clicked (not when anything new is rendered on page). 
-    // if (userInput) {
     axios({
       url: 'https://api.themoviedb.org/3/discover/movie',
       params: {
@@ -102,7 +92,6 @@ const Catalogue = () => {
       const movieArray = selectedMovies.slice();
       movieArray.splice(selectedMovieIndex, 1);
       setSelectedMovies(movieArray);
-      // console.log(movieArray, "movieArray");
     } else {
       //Object that will get added to state []
       //This will only let the user choose 10 movies per list.
@@ -115,48 +104,18 @@ const Catalogue = () => {
         const movieArray = selectedMovies.slice();
         movieArray.push(selectedMovie);
         setSelectedMovies(movieArray);
-        // console.log(movieArray, "movieArray");
       } else {
         alert("You have selected 10 movies! Click next if you are ready.")
       }
     }
-    // console.log(selectedMovies, "selectedMovieArray");
   }
 
-  //Create the subscrtiption(link) to firebase and will update anytime a value changes
-  useEffect(() => {
-    const dbRef = ref(realtime);
-    onValue(dbRef, (snapshot) => {
-      const myData = snapshot.val();
-      const newArray = [];
-      // console.log(snapshot.val(), "snapshot")
-      const userInfo = myData[userName];
-      for (let property in userInfo) {
-        // console.log(property);
-        const movieListObject = {
-          key: property,
-          movieList: userInfo[property]
-        }
-        newArray.push(movieListObject);
-      }
-      setMovieList(newArray);
-      // console.log(newArray, "movie")
-    })
-  }, [])
-
   const handleSubmitMovieList = (e) => {
-    //This will check to see if there are exactly 10 movies selected before saving to firebase.
     if (selectedMovies.length <= 9) {
       e.preventDefault()
       alert('please choose 10 movies')
     } else {
       setShowSortPage(true);
-
-      //creates the reference to the realtime database
-      // const dbRef = ref(realtime);
-      // //variable with reference to the specified relative path
-      // const userListRef = child(dbRef, `${user}/${listName}`)
-      // set(userListRef, props.selectedMovies);
     }
   }
 

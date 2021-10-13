@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import DisplayUserLists from './DisplayUserLists.js';
 import UserRankingFirebase from './UserRankingFirebase.js';
-import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import realtime from '../firebase.js';
+
 
 const UserRankingList = (props) => {
 
@@ -66,9 +65,7 @@ const UserRankingList = (props) => {
 
         }
     }
-    // useEffect(() => {
-    //     // Should not ever set state during rendering, so do this in useEffect instead.
-    // }, []);
+
 
     const errorHandle = () => {
         if (test.includes("0")) {

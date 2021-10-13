@@ -29,7 +29,7 @@ const Nav = () => {
                 setSignedIn(false)
             }
         });
-    }, [])
+    }, [auth])
 
 
     return (
