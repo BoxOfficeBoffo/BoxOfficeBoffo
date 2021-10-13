@@ -19,7 +19,6 @@ const Catalogue = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setSignedIn(true)
-        console.log(user.uid);
         userName = user.uid;
       } else {
         setSignedIn(false)
@@ -42,7 +41,7 @@ const Catalogue = () => {
 
 
 
-  const user = userName
+  // const user = userName
   // const listName = `${year} Blockbuster`
 
   const handleChange = (e) => {
@@ -85,7 +84,7 @@ const Catalogue = () => {
       }
       const shuffledResult = shuffleResult(res.data.results);
       setMovies(shuffledResult);
-      console.log(res.data.results, "res");
+      // console.log(res.data.results, "res");
     })
     //empty user selection when they they submit a new search.
     setSelectedMovies([]);
@@ -103,7 +102,7 @@ const Catalogue = () => {
       const movieArray = selectedMovies.slice();
       movieArray.splice(selectedMovieIndex, 1);
       setSelectedMovies(movieArray);
-      console.log(movieArray, "movieArray");
+      // console.log(movieArray, "movieArray");
     } else {
       //Object that will get added to state []
       //This will only let the user choose 10 movies per list.
@@ -116,7 +115,7 @@ const Catalogue = () => {
         const movieArray = selectedMovies.slice();
         movieArray.push(selectedMovie);
         setSelectedMovies(movieArray);
-        console.log(movieArray, "movieArray");
+        // console.log(movieArray, "movieArray");
       } else {
         alert("You have selected 10 movies! Click next if you are ready.")
       }
@@ -130,10 +129,10 @@ const Catalogue = () => {
     onValue(dbRef, (snapshot) => {
       const myData = snapshot.val();
       const newArray = [];
-      console.log(snapshot.val(), "snapshot")
-      const userInfo = myData[user];
+      // console.log(snapshot.val(), "snapshot")
+      const userInfo = myData[userName];
       for (let property in userInfo) {
-        console.log(property);
+        // console.log(property);
         const movieListObject = {
           key: property,
           movieList: userInfo[property]
@@ -141,7 +140,7 @@ const Catalogue = () => {
         newArray.push(movieListObject);
       }
       setMovieList(newArray);
-      console.log(newArray, "movie")
+      // console.log(newArray, "movie")
     })
   }, [])
 
@@ -168,11 +167,10 @@ const Catalogue = () => {
         signedIn ?
           <>
             {
-              showSortPage === true ?
+              showSortPage ?
                 <UserRankingList
                   listName={submittedYear}
                   selectedMovies={selectedMovies}
-                  userName={user}
                 /> :
                 <div>
                   <div className="catalogueForm wrapper">

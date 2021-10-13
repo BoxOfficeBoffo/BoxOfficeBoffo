@@ -8,118 +8,92 @@ import realtime from '../firebase.js';
 
 const UserRankingList = (props) => {
 
-    // let array = [
-    //     {
-    //         id: 102,
-    //         title: "Movie Title1",
-    //         photo: "photo URL"
-    //     },
-    //     {
-    //         id: 103,
-    //         title: "Movie Title2",
-    //         photo: "photo URL"
-    //     },
-    //     {
-    //         id: 104,
-    //         title: "Movie Title3",
-    //         photo: "photo URL"
-    //     },
-    //     {
-    //         id: 105,
-    //         title: "Movie Title4",
-    //         photo: "photo URL"
-    //     },
-    //     {
-    //         id: 106,
-    //         title: "Movie Title5",
-    //         photo: "photo URL"
-    //     }
-    // ]
-
-    let allSelection = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
+    // let allSelection = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
     const [signedIn, setSignedIn] = useState(false);
+    const [userName, setUserName] = useState("");
+    let listName = props.listName;
+    const [error, setError] = useState("");
+    const [showList, setShowList] = useState(false);
+    const [linkPath, setLinkPath] = useState(false);
+    const [test, setTest] = useState(["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]);
 
     // Firebase Auth
     const auth = getAuth();
-    let userName;
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setSignedIn(true)
-                console.log(user.uid);
-                userName = user.uid;
+                // setUserName("Jam");
+                setUserName(user.uid);
+                // console.log(userName);
             } else {
                 setSignedIn(false)
             }
         });
     }, [])
 
-    console.log(props.selectedMovies, "we are on sorting page")
-    console.log(props.listName, "listname")
-    console.log(props.userName, "username")
-    let listName = props.listName;
-    // const [error, setError] = useState("");
-    const [showList, setShowList] = useState(false);
 
     const handleUserInput = (e) => {
+        e.preventDefault();
         if (e.target.value) {
             const rankIndex = e.target.getAttribute('data-array-index');
             const userRank = e.target.getAttribute('data-rank');
-
             const rank = e.target.value;
 
-            // if (userRank) {
-            //     if(allSelection.includes(rank)) {
-            //         // find the index of the number
-            //         const numIndex = allSelection.indexOf(rank);
-            //         // replace the number from the array with a 0
-            //         allSelection[numIndex] = "0";
-            //     }
-            // } else {
-            //     // does it already exist in the allSelection?
-            //     if(allSelection.includes(rank)) {
-            //         // Yes: delete the number from the array
-            //         const numIndex = allSelection.indexOf(rank);
-            //         allSelection[numIndex] = "0";
-            //     }
-            // }
-            allSelection[rankIndex] = rank;
+            const arrayCopy = [...test]
+            if (userRank) {
+                if(arrayCopy.includes(rank)) {
+                    // find the index of the number
+                    const numIndex = arrayCopy.indexOf(rank);
+                    // replace the number from the array with a 0
+                    arrayCopy[numIndex] = "0";
+                }
+            } else {
+                // does it already exist in the allSelection?
+                if(arrayCopy.includes(rank)) {
+                    // Yes: delete the number from the array
+                    const numIndex = arrayCopy.indexOf(rank);
+                    arrayCopy[numIndex] = "0";
+                }
+            }
+            console.log(arrayCopy)
+            setTest(arrayCopy)
+            
+            // console.log(arrayCopy);
+            // arrayCopy[rankIndex] = rank;
             e.target.setAttribute('data-rank', e.target.value);
             props.selectedMovies[rankIndex].rank = rank;
 
-
-            // setUserRank(
-            //     userRank.map( (individualRank, index) => {
-            //         if (individualRank !== allSelection[index]) {
-            //             return allSelection[index];
-            //         } else {
-            //             return individualRank;
-            //         }
-            //     })
-            // );
-            // setUserRank(...allSelection);
-
-            console.log(allSelection);
-            // console.log(array);
         }
     }
+    // useEffect(() => {
+    //     // Should not ever set state during rendering, so do this in useEffect instead.
+    // }, []);
 
     const errorHandle = () => {
-        if (allSelection.includes("0")) {
+        if (test.includes("0")) {
+            setError("Please make sure all movies are ranked");
             console.log("Please make sure all movies are ranked");
+            setLinkPath(false);
             return false;
         } else {
             const findDuplicates = array => array.filter((item, index) => array.indexOf(item) !== index);
-            const duplicateElements = findDuplicates(allSelection);
-            // console.log(duplicateElements.length);
+            const duplicateElements = findDuplicates(test);
             if (duplicateElements.length !== 0) {
-                // setError("You can't assign same ranks to different movies")
+                setError("You can't assign same ranks to different movies")
                 console.log("You can't assign same ranks to different movies")
+                setLinkPath(false);
                 return false;
             } else {
-                // setError("");
+                setError("");
                 // save list and rank to firebase
-                UserRankingFirebase(props.selectedMovies, userName, listName);
+                const sendObjectToFirebase = {
+                    selectedMovies: props.selectedMovies,
+                    userName: userName,
+                    listName: listName
+                }
+                UserRankingFirebase(sendObjectToFirebase);
+                setLinkPath(true);
                 return true;
             }
         }
@@ -151,18 +125,19 @@ const UserRankingList = (props) => {
                     <>
                         {
                             showList ?
-                                <DisplayUserLists user={userName} /> :
+                                <DisplayUserLists userName={userName} /> :
                                 <div className="displayMovieList">
                                     {
                                         props.selectedMovies.map((movie, index) => {
                                             return (
                                                 <div key={index} className="movieContainer">
                                                     <h5>{movie.title}</h5>
-                                                    <p>{movie.id}</p>
+                                                    {/* <p>{movie.id}</p> */}
+                                                    <p>{test[index]}</p>
                                                     <form>
                                                         <select id="ranking" name="ranking" onChange={handleUserInput} data-array-index={index}>
                                                             <option value="placeholder" disabled>Pick one:</option>
-                                                            <option value="0"></option>
+                                                            <option value="0">0</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -179,9 +154,20 @@ const UserRankingList = (props) => {
                                             )
                                         })
                                     }
-                                    <Link to="/user/results">
+                                    {
+                                        error ?
+                                            <p>{error}</p>
+                                            : null
+                                    }
+                                    {
+                                        linkPath ?
+                                            <Link to="/user/results"><button onClick={handleClickDisplayResult}>Display Results</button></Link>
+                                            : <button onClick={handleClickDisplayResult}>Display Results</button>
+                                    }
+
+                                    {/* <Link to={linkPath? "/user/results"}>
                                         <button onClick={handleClickDisplayResult}>Display Results</button>
-                                    </Link>
+                                    </Link> */}
 
                                     <Link to="/">
                                         <button onClick={handleClickNewList}>New List</button>

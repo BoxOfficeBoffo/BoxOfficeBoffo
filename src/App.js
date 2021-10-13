@@ -10,17 +10,19 @@ function App() {
   return (
     <Router>
       <header>
+        <div className="wrapper">
           <h1>MOVIES</h1>
-        <Nav />
+          <Nav />
+        </div>
       </header>
       <div className="wrapper">
         <Route exact path="/">
           <Catalogue />
         </Route>
 
-        <Route path="/user/rankingList">
+        {/* <Route path="/user/rankingList">
           <UserRankingList />
-        </Route>
+        </Route> */}
 
         <Route path="/user/myList">
           <DisplayUserLists />
