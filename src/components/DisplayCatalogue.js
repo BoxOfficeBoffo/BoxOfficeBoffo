@@ -26,29 +26,17 @@ const DisplayCatalogue = (props) => {
     }, [])
     
 
-    const listName = `${year} Blockbuster`
 
-    const handleSubmitMovieList = () => {
-        //This will check to see if there are exactly 10 movies selected before saving to firebase.
-        if (props.selectedMovies.length <= 9) {
-            alert('please choose 10 movies')
-        } else {
-            //creates the reference to the realtime database
-            // const dbRef = ref(realtime);
-            // //variable with reference to the specified relative path
-            // const userListRef = child(dbRef, `${user}/${listName}`)
-            // set(userListRef, props.selectedMovies);
-        }
-    }
+
 
     return (
         <div className="displayCatalogue wrapper">
             {
                 signedIn ?
                     <>
-                        <Link to="/user/rankingList">
-                            <button onClick={() => handleSubmitMovieList()}>next page</button>
-                        </Link>
+                        {/* <Link to="/user/rankingList"> */}
+                            <button onClick={(e) => props.handleSubmitMovieList(e)}>next page</button>
+                        {/* </Link> */}
 
                         <h2>Here are the movies released in {year}</h2>
                         <ul>
