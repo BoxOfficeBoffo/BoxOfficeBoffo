@@ -3,45 +3,61 @@ import DisplayUserLists from './DisplayUserLists.js';
 import UserRankingFirebase from './UserRankingFirebase.js';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import realtime from '../firebase.js';
 
-const UserRankingList = (user) => {
-    let array = [
-        {
-            id: 102,
-            title: "Movie Title1",
-            photo: "photo URL"
-        },
-        {
-            id: 103,
-            title: "Movie Title2",
-            photo: "photo URL"
-        },
-        {
-            id: 104,
-            title: "Movie Title3",
-            photo: "photo URL"
-        },
-        {
-            id: 105,
-            title: "Movie Title4",
-            photo: "photo URL"
-        },
-        {
-            id: 106,
-            title: "Movie Title5",
-            photo: "photo URL"
-        }
-    ]
-    // const location = useLocation()
-    // const { user } = location.state
-    // console.log(location);
-    // const array = props.selectedMovies;
-    let allSelection = ["0", "0", "0", "0", "0"];
-    // const userName = props.userName;
-    // let listName = props.ListName;
-    const userName = "jam";
-    console.log(userName);
-    let listName = "A list";
+const UserRankingList = (props) => {
+
+    // let array = [
+    //     {
+    //         id: 102,
+    //         title: "Movie Title1",
+    //         photo: "photo URL"
+    //     },
+    //     {
+    //         id: 103,
+    //         title: "Movie Title2",
+    //         photo: "photo URL"
+    //     },
+    //     {
+    //         id: 104,
+    //         title: "Movie Title3",
+    //         photo: "photo URL"
+    //     },
+    //     {
+    //         id: 105,
+    //         title: "Movie Title4",
+    //         photo: "photo URL"
+    //     },
+    //     {
+    //         id: 106,
+    //         title: "Movie Title5",
+    //         photo: "photo URL"
+    //     }
+    // ]
+
+    let allSelection = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
+    const [signedIn, setSignedIn] = useState(false);
+
+    // Firebase Auth
+    const auth = getAuth();
+    let userName;
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setSignedIn(true)
+                console.log(user.uid);
+                userName = user.uid;
+            } else {
+                setSignedIn(false)
+            }
+        });
+    }, [])
+
+    console.log(props.selectedMovies, "we are on sorting page")
+    console.log(props.listName, "listname")
+    console.log(props.userName, "username")
+    let listName = props.listName;
     // const [error, setError] = useState("");
     const [showList, setShowList] = useState(false);
 
@@ -69,7 +85,7 @@ const UserRankingList = (user) => {
             // }
             allSelection[rankIndex] = rank;
             e.target.setAttribute('data-rank', e.target.value);
-            array[rankIndex].rank = rank;
+            props.selectedMovies[rankIndex].rank = rank;
 
 
             // setUserRank(
@@ -103,7 +119,7 @@ const UserRankingList = (user) => {
             } else {
                 // setError("");
                 // save list and rank to firebase
-                UserRankingFirebase(array, userName, listName);
+                UserRankingFirebase(props.selectedMovies, userName, listName);
                 return true;
             }
         }
@@ -128,46 +144,56 @@ const UserRankingList = (user) => {
         }
     }
 
-
     return (
         <main>
             {
-                showList? 
-                    <DisplayUserLists user={userName}/>:
-                    <div className="displayMovieList">
+                signedIn ?
+                    <>
                         {
-                            array.map((movie, index) => {
-                                return (
-                                    <div key={index} className="movieContainer">
-                                        <h5>{movie.title}</h5>
-                                        <p>{movie.id}</p>
-                                        <form>
-                                            <select id="ranking" name="ranking" onChange={handleUserInput} data-array-index={index}>
-                                                <option value="placeholder" disabled>Pick one:</option>
-                                                <option value="0"></option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                )
-                            })
+                            showList ?
+                                <DisplayUserLists user={userName} /> :
+                                <div className="displayMovieList">
+                                    {
+                                        props.selectedMovies.map((movie, index) => {
+                                            return (
+                                                <div key={index} className="movieContainer">
+                                                    <h5>{movie.title}</h5>
+                                                    <p>{movie.id}</p>
+                                                    <form>
+                                                        <select id="ranking" name="ranking" onChange={handleUserInput} data-array-index={index}>
+                                                            <option value="placeholder" disabled>Pick one:</option>
+                                                            <option value="0"></option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </form>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    <Link to="/user/results">
+                                        <button onClick={handleClickDisplayResult}>Display Results</button>
+                                    </Link>
+
+                                    <Link to="/">
+                                        <button onClick={handleClickNewList}>New List</button>
+                                    </Link>
+
+                                    <Link to="/user/myList">
+                                        <button onClick={() => setShowList(true)}>My Lists</button>
+                                    </Link>
+                                </div>
                         }
-                        <Link to="/user/results">
-                            <button onClick={handleClickDisplayResult}>Display Results</button>
-                        </Link>
-
-                        <Link to="/">
-                            <button onClick={handleClickNewList}>New List</button>
-                        </Link>
-
-                        <Link to="/user/myList">
-                            <button onClick={() => setShowList(true)}>My Lists</button>
-                        </Link>
-                    </div>
+                    </>
+                    : null
             }
         </main>
     )

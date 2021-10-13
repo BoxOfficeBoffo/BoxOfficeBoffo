@@ -2,10 +2,29 @@ import { useEffect, useState } from 'react/cjs/react.development';
 import realtime from '../firebase.js';
 import { ref, onValue, child } from 'firebase/database';
 import { Router } from 'react-router';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const UsersFinalList = () => {
 
     const [ moviesLists, setMovieLists ] = useState([]);
+
+    // Firebase Auth
+    const [signedIn, setSignedIn] = useState(false);
+    const auth = getAuth();
+    let user;
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setSignedIn(true)
+                console.log(user.uid);
+                user = user.uid;
+            } else {
+                setSignedIn(false)
+            }
+        });
+    }, [])
+
+
 
     // FIREBASE SETUP
     useEffect (() => {

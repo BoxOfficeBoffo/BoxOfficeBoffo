@@ -3,9 +3,31 @@ import axios from 'axios';
 import DisplayCatalogue from './DisplayCatalogue';
 import realtime from '../firebase.js';
 import { ref, onValue } from 'firebase/database';
+import UserRankingList from './UserRankingList';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 
 let submittedYear = ""
 const Catalogue = () => {
+
+  const [signedIn, setSignedIn] = useState(false);
+
+  // Firebase Auth
+  const auth = getAuth();
+  let userName;
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setSignedIn(true)
+        console.log(user.uid);
+        userName = user.uid;
+      } else {
+        setSignedIn(false)
+      }
+    });
+  }, [])
+
+
   //set state for year(userInput)
   const [userInput, setUserInput] = useState("");
   //set state for all movies from API search
@@ -14,7 +36,14 @@ const Catalogue = () => {
   const [movieList, setMovieList] = useState([]);
   //selected movies state
   const [selectedMovies, setSelectedMovies] = useState([])
+  //sorting page state
+  const [showSortPage, setShowSortPage] = useState(false)
 
+
+
+
+  const user = userName
+  // const listName = `${year} Blockbuster`
 
   const handleChange = (e) => {
     setUserInput(e.target.value);
@@ -70,30 +99,30 @@ const Catalogue = () => {
     const selectedMovieIndex = selectedMovies.findIndex((element) => element.id == id)
     //if the selected movie is already in the list, remove the selected movie.
     if (selectedMovieIndex >= 0) {
-        //did not render until .slice() was added.  Slice gets a copy of the array by value. React only renders when state is explicitly set. without slice(), it was changing it in place and not rendering because it was a copy by reference, not value.
+      //did not render until .slice() was added.  Slice gets a copy of the array by value. React only renders when state is explicitly set. without slice(), it was changing it in place and not rendering because it was a copy by reference, not value.
+      const movieArray = selectedMovies.slice();
+      movieArray.splice(selectedMovieIndex, 1);
+      setSelectedMovies(movieArray);
+      console.log(movieArray, "movieArray");
+    } else {
+      //Object that will get added to state []
+      //This will only let the user choose 10 movies per list.
+      if (selectedMovies.length <= 9) {
+        const selectedMovie = {
+          id: `${id}`,
+          title: `${title}`,
+          poster_path: `${poster}`
+        }
         const movieArray = selectedMovies.slice();
-        movieArray.splice(selectedMovieIndex, 1);
+        movieArray.push(selectedMovie);
         setSelectedMovies(movieArray);
         console.log(movieArray, "movieArray");
-    } else {
-        //Object that will get added to state []
-        //This will only let the user choose 10 movies per list.
-        if (selectedMovies.length <= 9) {
-            const selectedMovie = {
-                id: `${id}`,
-                title: `${title}`,
-                poster_path: `${poster}`
-            }
-            const movieArray = selectedMovies.slice();
-            movieArray.push(selectedMovie);
-            setSelectedMovies(movieArray);
-            console.log(movieArray, "movieArray");
-        } else {
-            alert("You have selected 10 movies! Click next if you are ready.")
-        }
+      } else {
+        alert("You have selected 10 movies! Click next if you are ready.")
+      }
     }
     // console.log(selectedMovies, "selectedMovieArray");
-}
+  }
 
   //Create the subscrtiption(link) to firebase and will update anytime a value changes
   useEffect(() => {
@@ -102,7 +131,7 @@ const Catalogue = () => {
       const myData = snapshot.val();
       const newArray = [];
       console.log(snapshot.val(), "snapshot")
-      const userInfo = myData.users.jam;
+      const userInfo = myData[user];
       for (let property in userInfo) {
         console.log(property);
         const movieListObject = {
@@ -116,30 +145,60 @@ const Catalogue = () => {
     })
   }, [])
 
+  const handleSubmitMovieList = (e) => {
+    //This will check to see if there are exactly 10 movies selected before saving to firebase.
+    if (selectedMovies.length <= 9) {
+      e.preventDefault()
+      alert('please choose 10 movies')
+    } else {
+      setShowSortPage(true);
+
+      //creates the reference to the realtime database
+      // const dbRef = ref(realtime);
+      // //variable with reference to the specified relative path
+      // const userListRef = child(dbRef, `${user}/${listName}`)
+      // set(userListRef, props.selectedMovies);
+    }
+  }
+
 
   return (
     <>
-      <div className="catalogueForm wrapper">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="yearInput">Choose a year:</label>
-          <input
-            type="text"
-            id="yearInput"
-            onChange={handleChange}
-            value={userInput}
-            placeholder="1999" />
-          <button type="submit">Enter</button>
-        </form>
-      </div>
-
-      {/* add ternary */}
-      <DisplayCatalogue
-        selectedMovies={selectedMovies}
-        handleSelectMovie={(id, title, poster) => handleSelectMovie(id, title, poster)}
-        theMovies={movies}
-        year={submittedYear}
-      />
-
+      {
+        signedIn ?
+          <>
+            {
+              showSortPage === true ?
+                <UserRankingList
+                  listName={submittedYear}
+                  selectedMovies={selectedMovies}
+                  userName={user}
+                /> :
+                <div>
+                  <div className="catalogueForm wrapper">
+                    <form onSubmit={handleSubmit}>
+                      <label htmlFor="yearInput">Choose a year:</label>
+                      <input
+                        type="text"
+                        id="yearInput"
+                        onChange={handleChange}
+                        value={userInput}
+                        placeholder="1999" />
+                      <button type="submit">Enter</button>
+                    </form>
+                  </div>
+                  <DisplayCatalogue
+                    selectedMovies={selectedMovies}
+                    handleSelectMovie={(id, title, poster) => handleSelectMovie(id, title, poster)}
+                    handleSubmitMovieList={(e) => handleSubmitMovieList(e)}
+                    theMovies={movies}
+                    year={submittedYear}
+                  />
+                </div>
+            }
+          </>
+          : null
+      }
     </>
   )
 }
