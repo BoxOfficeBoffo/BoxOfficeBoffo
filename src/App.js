@@ -1,13 +1,17 @@
 import './App.css';
 import Catalogue from './components/Catalogue.js';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import UserRankingList from './components/UserRankingList';
+import UserRankingList from './components/UserRankingList.js';
+import DisplayUserLists from './components/DisplayUserLists.js';
+import ResultsPage from './components/ResultsPage.js';
+import Nav from './components/Nav.js';
 
 function App() {
   return (
     <Router>
       <header>
-        <h1>MOVIES</h1>
+          <h1>MOVIES</h1>
+        <Nav />
       </header>
       <div className="wrapper">
         <Route exact path="/">
@@ -16,6 +20,14 @@ function App() {
 
         <Route path="/user/rankingList">
           <UserRankingList />
+        </Route>
+
+        <Route path="/user/myList">
+          <DisplayUserLists />
+        </Route>
+
+        <Route path="/user/results">
+          <ResultsPage />
         </Route>
 
       </div>

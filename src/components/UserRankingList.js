@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import DisplayUserLists from './DisplayUserLists.js';
 import UserRankingFirebase from './UserRankingFirebase.js';
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const UserRankingList = (user) => {
     let array = [
@@ -38,7 +39,7 @@ const UserRankingList = (user) => {
     let allSelection = ["0", "0", "0", "0", "0"];
     // const userName = props.userName;
     // let listName = props.ListName;
-    const userName = user;
+    const userName = "jam";
     console.log(userName);
     let listName = "A list";
     // const [error, setError] = useState("");
@@ -102,7 +103,7 @@ const UserRankingList = (user) => {
             } else {
                 // setError("");
                 // save list and rank to firebase
-                // UserRankingFirebase(array, userName, listName);
+                UserRankingFirebase(array, userName, listName);
                 return true;
             }
         }
@@ -130,8 +131,7 @@ const UserRankingList = (user) => {
 
     return (
         <main>
-            <h2>Test</h2>
-            {/* {
+            {
                 showList? 
                     <DisplayUserLists user={userName}/>:
                     <div className="displayMovieList">
@@ -156,11 +156,19 @@ const UserRankingList = (user) => {
                                 )
                             })
                         }
-                        <button onClick={handleClickDisplayResult}>Display Results</button>
-                        <button onClick={handleClickNewList}>New List</button>
-                        <button onClick={() => setShowList(true)}>My Lists</button>
+                        <Link to="/user/results">
+                            <button onClick={handleClickDisplayResult}>Display Results</button>
+                        </Link>
+
+                        <Link to="/">
+                            <button onClick={handleClickNewList}>New List</button>
+                        </Link>
+
+                        <Link to="/user/myList">
+                            <button onClick={() => setShowList(true)}>My Lists</button>
+                        </Link>
                     </div>
-            } */}
+            }
         </main>
     )
 }
