@@ -14,13 +14,22 @@ STYLES
 *************************/
 
 /* COLOURS */
-/* light-grey: #B2AB99
-dark-grey: #4C4637
-accent-color: #FBD400 */
+/* navy-blue: #070670
+blue: #0060CA
+light-blue: #91CEFF
+yellow: #FCDC74 */
+
+/* FONT-FAMILY */
+/* H1 = font-family: 'Tourney', cursive; */
+/* BODY = font-family: 'Montserrat', sans-serif; */
 
 /* GLOBAL STYLES */
 html {
   font-size: 125%;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
 }
 
 h1, 
@@ -42,6 +51,61 @@ li {
   border: 5px solid #FBD400;
 }
 
-/* 
+a {
+  text-decoration: none;
+}
+
+/************* 
 HEADER STLYES
- */
+*************/
+
+header {
+  background-color: #070670;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
+
+h1 {
+  font-family: 'Tourney', cursive;
+  font-size: 5.5rem;
+  text-transform: uppercase;
+  color: #FBD400;
+  padding: 20px 10px;
+  border-top:    7px solid  #FBD400;
+  border-bottom:7px solid #FBD400;
+  border-left:   7px solid  #FBD400;
+  margin: 20px
+}
+
+.goldStars {
+  width: 200px;
+  max-width: 100%;
+}
+
+.movieReel {
+  position: relative;
+  top: 35px;
+  right: 30px;
+  width: 300px;
+}
+
+/************ 
+FOOTER STLYES
+************/
+footer {
+  background-color: #070670;
+  text-align: center;
+  color: #FBD400;
+  padding: 10px 0;
+}
+
+footer a {
+  color: #FCDC74;
+}
+
