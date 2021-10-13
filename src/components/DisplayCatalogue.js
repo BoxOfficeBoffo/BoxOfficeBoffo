@@ -20,7 +20,7 @@ const DisplayCatalogue = (props) => {
                 setSignedIn(false)
             }
         });
-    }, [])
+    }, [auth])
     
 
 
@@ -42,7 +42,7 @@ const DisplayCatalogue = (props) => {
                                     return (
                                         <li key={individualMovie.id} onClick={() => props.handleSelectMovie(individualMovie.id, individualMovie.title, individualMovie.poster_path)}>
                                             {
-                                                props.selectedMovies.findIndex((item) => item.id == individualMovie.id) >= 0 ?
+                                                props.selectedMovies.findIndex((item) => item.id === individualMovie.id) >= 0 ?
                                                     <div className="selected">selected test</div> :
                                                     <div className="notSelected"></div>
                                             }
