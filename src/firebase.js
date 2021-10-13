@@ -5,12 +5,13 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyB4Cj740uB77O1SEAJLIg_iBwcHNtIzRY0",
-    authDomain: "test-347cd.firebaseapp.com",
-    projectId: "test-347cd",
-    storageBucket: "test-347cd.appspot.com",
-    messagingSenderId: "1039072908264",
-    appId: "1:1039072908264:web:e680161451a6cae8ae8a5d"
+    apiKey: "AIzaSyBV80xd8s0mydSw24PAwuUMpqARLSEwgmQ",
+    authDomain: "the-boffo.firebaseapp.com",
+    databaseURL: "https://the-boffo-default-rtdb.firebaseio.com/",
+    projectId: "the-boffo",
+    storageBucket: "the-boffo.appspot.com",
+    messagingSenderId: "868554383879",
+    appId: "1:868554383879:web:cc686dbef17f26e07d80a2"
 };
 
 // Initialize Firebase

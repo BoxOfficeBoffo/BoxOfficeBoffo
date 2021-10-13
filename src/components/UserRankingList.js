@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import DisplayUserLists from './DisplayUserLists.js';
 import UserRankingFirebase from './UserRankingFirebase.js';
+import { useLocation } from 'react-router-dom';
 
-const UserRankingList = () => {
+const UserRankingList = (user) => {
     let array = [
         {
             id: 102,
@@ -30,10 +31,16 @@ const UserRankingList = () => {
             photo: "photo URL"
         }
     ]
-
+    // const location = useLocation()
+    // const { user } = location.state
+    // console.log(location);
+    // const array = props.selectedMovies;
     let allSelection = ["0", "0", "0", "0", "0"];
-    let userName = "Pink";
-    let listName = "2015 Blockbuster";
+    // const userName = props.userName;
+    // let listName = props.ListName;
+    const userName = user;
+    console.log(userName);
+    let listName = "A list";
     // const [error, setError] = useState("");
     const [showList, setShowList] = useState(false);
 
@@ -95,7 +102,7 @@ const UserRankingList = () => {
             } else {
                 // setError("");
                 // save list and rank to firebase
-                UserRankingFirebase(array, userName, listName);
+                // UserRankingFirebase(array, userName, listName);
                 return true;
             }
         }
@@ -123,7 +130,8 @@ const UserRankingList = () => {
 
     return (
         <main>
-            {
+            <h2>Test</h2>
+            {/* {
                 showList? 
                     <DisplayUserLists user={userName}/>:
                     <div className="displayMovieList">
@@ -148,16 +156,11 @@ const UserRankingList = () => {
                                 )
                             })
                         }
-                        {/* {
-                        error? 
-                            <p className="userListError">{error}</p>
-                            : null
-                    } */}
                         <button onClick={handleClickDisplayResult}>Display Results</button>
                         <button onClick={handleClickNewList}>New List</button>
                         <button onClick={() => setShowList(true)}>My Lists</button>
                     </div>
-            }
+            } */}
         </main>
     )
 }

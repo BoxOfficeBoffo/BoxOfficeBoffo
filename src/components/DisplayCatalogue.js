@@ -1,31 +1,35 @@
 import realtime from '../firebase.js';
 import { ref, child, set } from 'firebase/database';
+import { Link } from 'react-router-dom';
+import UserRankingList from './UserRankingFirebase.js';
 // import { useEffect, useState } from 'react';
 
 const DisplayCatalogue = (props) => {
     const movies = props.theMovies;
     const year = props.year;
+    const user = "jam"
+    const listName = `${year} Blockbuster`
 
     const handleSubmitMovieList = () => {
         //This will check to see if there are exactly 10 movies selected before saving to firebase.
         if (props.selectedMovies.length <= 9) {
             alert('please choose 10 movies')
         } else {
-            const user = "jam"
-            const listName = `${year} Blockbuster`
             //creates the reference to the realtime database
-            const dbRef = ref(realtime);
-            //variable with reference to the specified relative path
-            const userListRef = child(dbRef, `users/${user}/${listName}`)
-            set(userListRef, props.selectedMovies);
+            // const dbRef = ref(realtime);
+            // //variable with reference to the specified relative path
+            // const userListRef = child(dbRef, `${user}/${listName}`)
+            // set(userListRef, props.selectedMovies);
         }
     }
 
     return (
         <div className="displayCatalogue wrapper">
 
+            <Link to="/user/rankingList">
+                <button onClick={() => handleSubmitMovieList()}>next page</button>
+            </Link>
 
-            <button onClick={() => handleSubmitMovieList()}>next page</button>
             <h2>Here are the movies released in {year}</h2>
             <ul>
                 {

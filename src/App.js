@@ -9,12 +9,16 @@ function App() {
       <header>
         <h1>MOVIES</h1>
       </header>
-      <UserRankingList />
-      {/* <div className="wrapper">
+      <div className="wrapper">
         <Route exact path="/">
           <Catalogue />
         </Route>
-      </div> */}
+
+        <Route path="/user/rankingList">
+          <UserRankingList />
+        </Route>
+
+      </div>
     </Router>
   );
 }
