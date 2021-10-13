@@ -1,5 +1,5 @@
-import { useState } from "react/cjs/react.development";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { useState, useEffect } from "react";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 const Nav = () => {
 
@@ -9,7 +9,7 @@ const Nav = () => {
     const signInWithGoogle = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
-            .then((user) => {
+            .then(() => {
                 setSignedIn(true);
             }).catch((error) => {
                 console.log(error)
@@ -20,6 +20,16 @@ const Nav = () => {
         signOut(auth)
         setSignedIn(false);
     }
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setSignedIn(true)
+            } else {
+                setSignedIn(false)
+            }
+        });
+    }, [])
 
 
     return (

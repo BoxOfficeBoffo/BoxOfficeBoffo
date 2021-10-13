@@ -12,13 +12,13 @@ const DisplayCatalogue = (props) => {
     // Firebase Auth
     const [signedIn, setSignedIn] = useState(false);
     const auth = getAuth();
-    let user;
+    let userName;
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setSignedIn(true)
-                console.log(user.uid);
-                user = user.uid;
+                // console.log(user.uid);
+                userName = user.uid;
             } else {
                 setSignedIn(false)
             }
