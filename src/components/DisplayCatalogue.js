@@ -1,7 +1,7 @@
-import realtime from '../firebase.js';
-import { ref, child, set } from 'firebase/database';
-import { Link } from 'react-router-dom';
-import UserRankingList from './UserRankingFirebase.js';
+
+
+
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from 'react';
 
@@ -12,13 +12,10 @@ const DisplayCatalogue = (props) => {
     // Firebase Auth
     const [signedIn, setSignedIn] = useState(false);
     const auth = getAuth();
-    let userName;
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setSignedIn(true)
-                // console.log(user.uid);
-                userName = user.uid;
             } else {
                 setSignedIn(false)
             }
