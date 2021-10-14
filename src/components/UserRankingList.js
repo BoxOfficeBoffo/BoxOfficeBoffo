@@ -83,6 +83,7 @@ const UserRankingList = (props) => {
                                 :
                                 <>
                                     <div className="displayMovieList">
+                                        <h3>{props.listName}</h3>
                                         {
                                             props.selectedMovies.map((movie, index) => {
                                                 return (
