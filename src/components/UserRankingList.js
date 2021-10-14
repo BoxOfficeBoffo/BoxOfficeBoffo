@@ -67,7 +67,8 @@ const UserRankingList = (props) => {
                 const sendObjectToFirebase = {
                     selectedMovies: props.selectedMovies,
                     userName: userName,
-                    listName: listName
+                    listName: listName,
+                    year: props.year
                 }
                 UserRankingFirebase(sendObjectToFirebase);
                 setLinkPath(true);

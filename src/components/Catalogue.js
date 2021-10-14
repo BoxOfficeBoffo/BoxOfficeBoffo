@@ -127,7 +127,8 @@ const Catalogue = () => {
             {
               showSortPage ?
                 <UserRankingList
-                  listName={submittedYear}
+                  listName={`list${submittedYear}`}
+                  year={submittedYear}
                   selectedMovies={selectedMovies}
                 /> :
                 <div>

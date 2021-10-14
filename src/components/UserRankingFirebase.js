@@ -9,7 +9,9 @@ const UserRankingList = (props) => {
     // creates the reference to the realtime database
     const dbRef = ref(realtime);
     // variable with reference to the specified relative path
-    const userListRef = child(dbRef, `${props.userName}/${props.listName}`)
+    const userListRef = child(dbRef, `${props.userName}/${props.year}/${props.listName}`)
+    console.log(props.listName)
+    // const userListRef = child(dbRef, `${props.userName}/${props.year}/jam`)
     set(userListRef, movies);
 }
 
