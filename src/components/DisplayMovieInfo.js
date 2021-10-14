@@ -3,14 +3,14 @@ import realtime from '../firebase.js';
 import { useState, useEffect } from 'react';
 
 const DisplayMovieInfo = (props) => {
-    const dbRef = ref(realtime);
     const [movieList, setMovieList] = useState([]);
     // variable to check if the list has been deleted or not
     const [listNotDeleted, setListNotDeleted] = useState(true);
     // using the listName passed as props, create a reference path
-    const userMovieListRef = child(dbRef, `${props.userName}/${props.year}/${props.listName}`);
-
+    
     useEffect(() => {
+        const dbRef = ref(realtime);
+        const userMovieListRef = child(dbRef, `${props.userName}/${props.year}/${props.listName}`);
         onValue(userMovieListRef, (snapshot) => {
             const allMovies = snapshot.val();
             const movieInfo = []
@@ -26,7 +26,7 @@ const DisplayMovieInfo = (props) => {
             }
             setMovieList(movieInfo);
         })
-    }, [])
+    }, [props])
 
     const handleListDelete = () => {
         // reference path using the parameter passed

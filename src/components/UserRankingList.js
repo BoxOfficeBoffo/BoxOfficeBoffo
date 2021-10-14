@@ -14,9 +14,9 @@ const UserRankingList = (props) => {
     const [test, setTest] = useState(["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]);
     const [showCatalogue, setShowCatalogue] = useState(false);
 
-    // Firebase Auth
-    const auth = getAuth();
     useEffect(() => {
+        // Firebase Auth
+        const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setSignedIn(true)
