@@ -36,31 +36,11 @@ const UserRankingList = (props) => {
         e.preventDefault();
         if (e.target.value) {
             const rankIndex = e.target.getAttribute('data-array-index');
-            const userRank = e.target.getAttribute('data-rank');
             const rank = e.target.value;
 
-            const arrayCopy = [...test]
-            if (userRank) {
-                if(arrayCopy.includes(rank)) {
-                    // find the index of the number
-                    const numIndex = arrayCopy.indexOf(rank);
-                    // replace the number from the array with a 0
-                    arrayCopy[numIndex] = "0";
-                }
-            } else {
-                // does it already exist in the allSelection?
-                if(arrayCopy.includes(rank)) {
-                    // Yes: delete the number from the array
-                    const numIndex = arrayCopy.indexOf(rank);
-                    arrayCopy[numIndex] = "0";
-                }
-            }
-            console.log(arrayCopy)
+            const arrayCopy = [...test];
+            arrayCopy[rankIndex] = rank;
             setTest(arrayCopy)
-            
-            // console.log(arrayCopy);
-            // arrayCopy[rankIndex] = rank;
-            e.target.setAttribute('data-rank', e.target.value);
             props.selectedMovies[rankIndex].rank = rank;
 
         }
