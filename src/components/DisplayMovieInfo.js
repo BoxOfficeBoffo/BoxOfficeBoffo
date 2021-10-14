@@ -3,7 +3,6 @@ import realtime from '../firebase.js';
 import { useState, useEffect } from 'react';
 
 const DisplayMovieInfo = (props) => {
-    console.log(props);
     const dbRef = ref(realtime);
     const [movieList, setMovieList] = useState([]);
     // variable to check if the list has been deleted or not
@@ -27,7 +26,7 @@ const DisplayMovieInfo = (props) => {
             }
             setMovieList(movieInfo);
         })
-    }, [userMovieListRef])
+    }, [])
 
     const handleListDelete = () => {
         // reference path using the parameter passed

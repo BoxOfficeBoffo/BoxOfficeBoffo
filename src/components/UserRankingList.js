@@ -26,7 +26,7 @@ const UserRankingList = (props) => {
                 setSignedIn(false)
             }
         });
-    }, [auth])
+    }, [])
 
 
     const handleUserInput = (e) => {
