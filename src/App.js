@@ -4,15 +4,19 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import DisplayUserLists from './components/DisplayUserLists.js';
 import ResultsPage from './components/ResultsPage.js';
 import Nav from './components/Nav.js';
+import goldStars from './assets/goldStars.png'
+import movieReel from './assets/movieReel.png'
 
 function App() {
   return (
     <Router>
       <header>
-        <div className="wrapper">
-          <h1>MOVIES</h1>
-          <Nav />
-        </div>
+          <div className="headerContainer wrapper">
+            <img src={goldStars} alt="Seven gold stars in an arch" className="goldStars"/>
+            <h1>Box Office Buster</h1>
+            <img src={movieReel} alt="Clipart of a movie reel" className="movieReel"/>
+          </div>
+        <Nav />
       </header>
       <div className="wrapper">
         <Route exact path="/">
@@ -28,6 +32,9 @@ function App() {
         </Route>
 
       </div>
+      <footer>
+        <p>Created © <a href="https://junocollege.com/">Juno College </a>2021</p>
+      </footer>
     </Router>
   );
 }

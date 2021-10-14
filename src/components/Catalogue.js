@@ -132,6 +132,9 @@ const Catalogue = () => {
                   selectedMovies={selectedMovies}
                 /> :
                 <div>
+                  <div className="intro">
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit quibusdam fugit veniam eos nostrum incidunt, hic iste voluptates atque dignissimos error, tenetur tempora. Quo natus assumenda autem eum rerum perferendis? Rank movies from 1-10!</p>
+                  </div>
                   <div className="catalogueForm wrapper">
                     <form onSubmit={handleSubmit}>
                       <label htmlFor="yearInput">Choose a year:</label>

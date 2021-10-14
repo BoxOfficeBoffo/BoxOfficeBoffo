@@ -52,10 +52,10 @@ const UsersFinalList = () => {
                     <p>Tis a fake!</p>
                     {/* <ul>
                 return (
-                    {userList.map((user, index) => {
+                    {userLists.map((user, index) => {
                         return (
                             <li> {user}
-                                {userList.map((subLists, sIndex) => {
+                                {userLists.map((subLists, sIndex) => {
                                     return (
                                         <li> {subLists}</li> 
                                     )}

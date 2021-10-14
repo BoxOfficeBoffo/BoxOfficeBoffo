@@ -3,8 +3,8 @@ const DisplayTopMovies = (apiData) => {
     const topMovies = apiData.theMovieList;
 
     return(
-        <div>
-            <ul>
+        <div className="topMovieContainer wrapper">
+            <ul className="topMovieListC wrapper">
                 {
                     topMovies.map((individualMovie) => {
                         return (
