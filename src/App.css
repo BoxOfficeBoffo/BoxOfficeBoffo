@@ -42,9 +42,9 @@ li {
 }
 
 .wrapper {
-  max-width: 1200px;
+  max-width: 1280px;
   width: 95%;
-  /* margin: 0 auto; */
+  margin: 0 auto;
 }
 
 .selected {
@@ -72,12 +72,13 @@ header {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 25px;
+  padding: 25px 0;
+  width: 100%;
 }
 
 h1 {
   font-family: 'Tourney', cursive;
-  font-size: 5.5rem;
+  font-size: 4.5rem;
   text-transform: uppercase;
   color: #FBD400;
   border-top:    7px solid  #FBD400;
@@ -98,13 +99,15 @@ h1 {
 
 .movieReel {
   position: relative;
-  right: 30px;
+  bottom: -35px;
+  right: 100px;
   width: 300px;
+  max-width: 100%;
 }
 
 /* NAV */
 nav {
-  background-color: #000441;
+  background-color: #03023d;
 }
 
 nav ul { 
@@ -131,6 +134,7 @@ body {
 
 }
 
+/* Intro */
 .intro {
   display: flex;
   width: 100vw;
@@ -150,7 +154,39 @@ body {
 .displayCatalogue {
   background-color: #91CEFF;
 }
-/* Intro */
+
+
+
+/************ 
+TOP MOVIE LIST STLYES
+************/
+.topMovieContainer {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0;
+}
+
+.wrapper ul {
+  margin: 0 0;
+}
+
+.topMovieListC {
+  background-color: #FBD400;
+  border-bottom: 8px solid #070670;
+  border-right: 8px solid #070670;
+  box-shadow: 20px 20px #d6af00;
+  width: 400px;
+  padding: 15px 0;
+}
+
+.topMovieListC li {
+  padding: 15px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
 /************ 
 FOOTER STLYES
@@ -167,3 +203,13 @@ footer a {
   font-weight: bold;
 }
 
+
+/************ 
+MEDIA QUERIES
+************/
+
+@media (max-width: 1132px) {
+  .movieReel {
+    bottom: -86px;
+  }
+}
