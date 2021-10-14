@@ -31,11 +31,12 @@ const DisplayCatalogue = (props) => {
             {
                 signedIn ?
                     <>
-                        {/* <Link to="/user/rankingList"> */}
-                            <button onClick={(e) => props.handleSubmitMovieList(e)}>next page</button>
-                        {/* </Link> */}
-
-                        <h2>Here are the movies released in {year}</h2>
+                    {/* if no movies, do not display text */}
+                        {
+                            movies.length > 0 ?
+                            <h2>Here are the movies released in {year}</h2>:
+                            null
+                        }
                         <ul>
                             {
                                 movies.map((individualMovie) => {
