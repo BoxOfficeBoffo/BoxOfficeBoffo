@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react';
 import realtime from '../firebase.js';
-import { ref, onValue, child } from 'firebase/database';
-import { Router } from 'react-router';
+import { ref, onValue } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const UsersFinalList = () => {
 
-    const [ moviesLists, setMovieLists ] = useState([]);
+    const [ userLists, setUserLists ] = useState([]);
 
     // Firebase Auth
     const [signedIn, setSignedIn] = useState(false);
@@ -35,26 +34,33 @@ const UsersFinalList = () => {
         onValue(dbRef, (snapshot) => {
             const myData = snapshot.val();
 
-            // Empty array for the notes object
-            // const newArray = [];
-
-            // const userInfo = myData.users.jam;
-            // console.log(userInfo);
-            // const userDB = userInfo;
-
-
-        },)
-    })
+            for (let propName in myData) {
+                // Save the loop in a new variable
+                const listObject = {
+                    key: propName,
+                    list: myData[propName]
+                }
+            
+            //     // Push all new input on to the notesObject onto the Array
+            //     newArray.push(listObject)
+            //     }
+            // // Passing our state the array
+            // setUserLists(newArray);
+            // });
+            
+        // }, []);
+            }})
+        })
 
     return (
         <div>
             <p>Tis a fake!</p>
-            {/* <ul>
+            <ul>
                 return (
-                    {userList.map((user, index) => {
+                    {userLists.map((user, index) => {
                         return (
                             <li> {user}
-                                {userList.map((subLists, sIndex) => {
+                                {userLists.map((subLists, sIndex) => {
                                     return (
                                         <li> {subLists}</li> 
                                     )}
@@ -64,7 +70,7 @@ const UsersFinalList = () => {
                         }
                     )}
                 )
-            </ul> */}
+            </ul>
             <button></button>
         </div>
     )

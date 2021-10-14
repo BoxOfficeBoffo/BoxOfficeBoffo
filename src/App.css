@@ -44,7 +44,7 @@ li {
 .wrapper {
   max-width: 1200px;
   width: 95%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .selected {
@@ -53,6 +53,10 @@ li {
 
 a {
   text-decoration: none;
+}
+
+li {
+  list-style: none;
 }
 
 /************* 
@@ -68,7 +72,7 @@ header {
   justify-content: center;
   align-items: center;
   text-align: center;
-
+  padding: 25px;
 }
 
 h1 {
@@ -76,24 +80,77 @@ h1 {
   font-size: 5.5rem;
   text-transform: uppercase;
   color: #FBD400;
-  padding: 20px 10px;
   border-top:    7px solid  #FBD400;
   border-bottom:7px solid #FBD400;
   border-left:   7px solid  #FBD400;
-  margin: 20px
+  margin: 20px;
 }
 
 .goldStars {
+  position: relative;
+  top: -30px;
+  left: 120px;
   width: 200px;
   max-width: 100%;
+  filter: brightness(130%) hue-rotate(10deg);
+  transform: rotate(-60deg);
 }
 
 .movieReel {
   position: relative;
-  top: 35px;
   right: 30px;
   width: 300px;
 }
+
+/* NAV */
+nav {
+  background-color: #000441;
+}
+
+nav ul { 
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;  
+}
+
+nav li {
+  color: azure;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+nav li:hover {
+  color: #FBD400;
+}
+
+/************ 
+BODY STLYES
+************/
+body {
+  background-color: #91CEFF;
+
+}
+
+.intro {
+  display: flex;
+  width: 100vw;
+  background-color: #0b84b4;
+  justify-content: center;
+}
+
+.intro p {
+  font-weight: normal;
+  color:white;
+  text-align: center;
+  line-height: 1.8rem ;
+  width: 75%;
+  text-shadow: 2px 2px #070670;
+}
+
+.displayCatalogue {
+  background-color: #91CEFF;
+}
+/* Intro */
 
 /************ 
 FOOTER STLYES
@@ -107,5 +164,6 @@ footer {
 
 footer a {
   color: #FCDC74;
+  font-weight: bold;
 }
 

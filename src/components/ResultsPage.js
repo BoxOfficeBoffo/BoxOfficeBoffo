@@ -2,10 +2,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import DisplayTopMovies from "./DisplayTopMovies.js";
 import UsersFinalList from "./UsersFinalLists.js";
+import realtime from '../firebase.js';
+
 
 const ResultsPage = () => {
 
     const [topMovies, setTopMovies] = useState([]);
+    const [userData, setUserData] = useState([]);
 
     useEffect(() => {
         axios ({
@@ -24,6 +27,12 @@ const ResultsPage = () => {
             setTopMovies(res.data.results);
         })
     }, []);
+
+    useEffect(() => {
+        const
+    })
+
+
 
 
     return (

@@ -13,9 +13,9 @@ function App() {
     <Router>
       <header>
           <div className="headerContainer">
-            <img src={goldStars} alt="Seven gold stars in an arch" className="goldStars"/>
+            {/* <img src={goldStars} alt="Seven gold stars in an arch" className="goldStars"/> */}
             <h1>Box Office Buster</h1>
-            <img src={movieReel} alt="Clipart of a movie reel" className="movieReel"/>
+            {/* <img src={movieReel} alt="Clipart of a movie reel" className="movieReel"/> */}
           </div>
         <Nav />
       </header>
@@ -24,9 +24,9 @@ function App() {
           <Catalogue />
         </Route>
 
-        <Route path="/user/rankingList">
+        {/* <Route path="/user/rankingList">
           <UserRankingList />
-        </Route>
+        </Route> */}
 
         <Route path="/user/myList">
           <DisplayUserLists />
@@ -38,7 +38,7 @@ function App() {
 
       </div>
       <footer>
-        <p>Created © <a href="https://junocollege.com/">Juno College</a>2021</p>
+        <p>Created © <a href="https://junocollege.com/">Juno College </a>2021</p>
       </footer>
     </Router>
   );
