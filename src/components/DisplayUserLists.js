@@ -40,7 +40,7 @@ const DisplayUserLists = () => {
                 setSignedIn(false)
             }
         })
-    }, []);
+    }, [auth]);
 
     return (
         <div className="displayUserLists">

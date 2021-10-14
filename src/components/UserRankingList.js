@@ -42,7 +42,7 @@ const UserRankingList = (props) => {
 
         }
     }
-
+    
     const errorHandle = () => {
         if (test.includes("0")) {
             setError("Please make sure all movies are ranked");
@@ -118,7 +118,7 @@ const UserRankingList = (props) => {
 
                                         <div className="createListPagebuttons">
                                             {
-                                                linkPath ?
+                                                !linkPath ?
                                                     <button onClick={errorHandle}>Save List</button>
                                                     :
                                                     <Link to="/user/results">

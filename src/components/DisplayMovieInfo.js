@@ -27,7 +27,7 @@ const DisplayMovieInfo = (props) => {
             }
             setMovieList(movieInfo);
         })
-    }, [props])
+    }, [userMovieListRef])
 
     const handleListDelete = () => {
         // reference path using the parameter passed
