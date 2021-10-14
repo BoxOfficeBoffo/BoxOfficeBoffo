@@ -4,17 +4,17 @@ import DisplayTopMovies from "./DisplayTopMovies.js";
 import UsersFinalList from "./UsersFinalLists.js";
 import realtime from '../firebase.js';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { ref, child, onValue} from 'firebase/database';
+import { ref, onValue} from 'firebase/database';
 
 
 const ResultsPage = () => {
 
     const [topMovies, setTopMovies] = useState([]);
-    const [userData, setUserData] = useState([]);
+    // const [userData, setUserData] = useState([]);
 
     // AUTHENTICATION AND USER STATE
-    const [signedIn, setSignedIn] = useState(false);
-    const [userName, setUserName] = useState("");
+    // const [signedIn, setSignedIn] = useState(false);
+    // const [userName, setUserName] = useState("");
 
     // Firebase Auth
     const auth = getAuth();
