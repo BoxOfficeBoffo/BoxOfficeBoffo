@@ -17,8 +17,6 @@ const NewListDisplay = (props) => {
         }
     })
 
-
-
     return (
         <>
             <DisplayMovieInfo userName={props.userName} listName={userListNames} year={props.year}/>
