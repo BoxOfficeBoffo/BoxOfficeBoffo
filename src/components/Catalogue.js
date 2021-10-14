@@ -20,15 +20,13 @@ const Catalogue = () => {
         setSignedIn(false)
       }
     });
-  }, [])
+  }, [auth])
 
 
   //set state for year(userInput)
   const [userInput, setUserInput] = useState("");
   //set state for all movies from API search
   const [movies, setMovies] = useState([]);
-  //set state for selected movies
-  const [movieList, setMovieList] = useState([]);
   //selected movies state
   const [selectedMovies, setSelectedMovies] = useState([])
   //sorting page state
@@ -85,7 +83,7 @@ const Catalogue = () => {
   //If the movie has already been selected, it will be removed.
   const handleSelectMovie = (id, title, poster) => {
     //findIndex returns the index of the first element in the array that satisfies condition
-    const selectedMovieIndex = selectedMovies.findIndex((element) => element.id == id)
+    const selectedMovieIndex = selectedMovies.findIndex((element) => element.id === id)
     //if the selected movie is already in the list, remove the selected movie.
     if (selectedMovieIndex >= 0) {
       //did not render until .slice() was added.  Slice gets a copy of the array by value. React only renders when state is explicitly set. without slice(), it was changing it in place and not rendering because it was a copy by reference, not value.
@@ -97,7 +95,7 @@ const Catalogue = () => {
       //This will only let the user choose 10 movies per list.
       if (selectedMovies.length <= 9) {
         const selectedMovie = {
-          id: `${id}`,
+          id: id,
           title: `${title}`,
           poster_path: `${poster}`
         }
@@ -108,6 +106,7 @@ const Catalogue = () => {
         alert("You have selected 10 movies! Click next if you are ready.")
       }
     }
+    // console.log(typeof(selectedMovies[0].id), "type of selectedMovies move id")
   }
 
   const handleSubmitMovieList = (e) => {
