@@ -3,12 +3,13 @@ import realtime from '../firebase.js';
 import { useState, useEffect } from 'react';
 
 const DisplayMovieInfo = (props) => {
+    console.log(props);
     const dbRef = ref(realtime);
     const [movieList, setMovieList] = useState([]);
     // variable to check if the list has been deleted or not
     const [listNotDeleted, setListNotDeleted] = useState(true);
     // using the listName passed as props, create a reference path
-    const userMovieListRef = child(dbRef, `${props.userName}/${props.listName}`);
+    const userMovieListRef = child(dbRef, `${props.userName}/${props.year}/${props.listName}`);
 
     useEffect(() => {
         onValue(userMovieListRef, (snapshot) => {
@@ -19,7 +20,7 @@ const DisplayMovieInfo = (props) => {
                 const movieInfoObject = {
                     key: allMovies[movieObjects].id,
                     title: allMovies[movieObjects].title,
-                    poster: allMovies[movieObjects].photo,
+                    poster: allMovies[movieObjects].poster_path,
                     rank: allMovies[movieObjects].rank
                 }
                 movieInfo.push(movieInfoObject);
@@ -28,9 +29,9 @@ const DisplayMovieInfo = (props) => {
         })
     }, [userMovieListRef])
 
-    const handleListDelete = (keyOfListToDelete) => {
+    const handleListDelete = () => {
         // reference path using the parameter passed
-        const specificNodeRef = ref(realtime, `${props.userName}/${keyOfListToDelete}`);
+        const specificNodeRef = ref(realtime, `${props.userName}/${props.year}/${props.listName}`);
         remove(specificNodeRef);
         // set the listNotDeleted to false as a list has been deleted so that the state updates to reflect that
         setListNotDeleted(false);
@@ -42,14 +43,19 @@ const DisplayMovieInfo = (props) => {
                 // only display list if the list hasn't been deleted
                 listNotDeleted ?
                     (<>
-                        <h5>{props.listName}</h5>
+                        <h5>{props.listName} (Year: {props.year})</h5>
                         <ul className="theMovies">
                             {
                                 movieList.map((individualMovie) => {
                                     return (
                                         <li key={individualMovie.key} className="individualMovies">
-                                            <p>{individualMovie.title}</p>
                                             <p>{individualMovie.rank}</p>
+                                            <p>{individualMovie.title}</p>
+                                            {
+                                                individualMovie.poster
+                                                    ? <img src={`https://image.tmdb.org/t/p/w500/${individualMovie.poster}`} alt={`Poster for ${individualMovie.title}`} />
+                                                    : <div className="emptyPoster"></div>
+                                            }
                                         </li>
 
                                     )
@@ -57,8 +63,8 @@ const DisplayMovieInfo = (props) => {
                             }
                         </ul>
                         {/* onClick, send the listName to handleListDelete so that a reference path can be created */}
-                        <button onClick={() => handleListDelete(props.listName)}>Delete</button>
-                    </>) 
+                        <button onClick={handleListDelete}>Delete</button>
+                    </>)
                     : null
             }
         </>

@@ -1,48 +1,67 @@
 import realtime from '../firebase.js';
 import { ref, child, onValue } from 'firebase/database';
 import { useEffect, useState } from 'react';
-import DisplayMovieInfo from './DisplayMovieInfo.js';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import NewListDisplay from './NewListDisplay.js';
 
-const DisplayUserLists = (props) => {
-    const [userList, setUserList] = useState([]);
-    const userName = props.user;
+let userName;
 
+const DisplayUserLists = () => {
+    const [listYears, setListYears] = useState([]);
+    const [signedIn, setSignedIn] = useState(false);
+    const [haveInfo, setHaveInfo] = useState(false);
+
+
+    // Firebase Auth
+    const auth = getAuth();
     useEffect(() => {
-        //creates the reference to the realtime database
-        const dbRef = ref(realtime);
-        const userListNames = [];
-        // Firebase refereance path
-        const userListRef = child(dbRef, userName)
-        onValue(userListRef, (snapshot) => {
-            const rankingList = snapshot.val();
-            // Get the name of ALL lists created by user
-            for (let propertyName in rankingList) {
-                const userListObject = {
-                    key: propertyName,
-                    title: propertyName
-                }
-                userListNames.push(userListObject);
-            }
-            setUserList(userListNames);
-        });
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setSignedIn(true)
+                userName = user.uid;
+                console.log(userName)
+                const dbRef = ref(realtime);
+                const theYears = [];
 
-    }, [userName]);
+                // Firebase refereance path
+                const userYearRef = child(dbRef, `${userName}`);
+                onValue(userYearRef, (snapshot) => {
+                    const listByYear = snapshot.val();
+
+                    // Get the year
+                    for (let yearProperty in listByYear) {
+                        theYears.push(yearProperty);
+                    }
+                    setListYears(theYears);
+                    setHaveInfo(true);
+                });
+
+            } else {
+                setSignedIn(false)
+            }
+        })
+    }, [auth]);
 
     return (
         <div className="displayUserLists">
-            <h2>Here are your lists: </h2>
-            <ul>
-                {
-                    userList.map((individualList) => {
-                        return (
-                            <li key={individualList.key}>
-                                {/* Send the list name to DisplayMovieInfo component */}
-                                <DisplayMovieInfo listName={individualList.title} userName={userName}/>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+            {
+                signedIn ?
+                    <>
+                        <h2>Here are your lists: </h2>
+                        {
+                            haveInfo ?
+                                listYears.map((individualYear) => {
+                                    return (
+                                        <ul className={`year${individualYear}`} key={`year${individualYear}`}>
+                                            <NewListDisplay userName={userName} year={individualYear}/>
+                                        </ul>
+                                    )
+                                })
+                                : <p>Don't have</p>
+                        }
+                    </>
+                    : <p>Please Log in to see your list</p>
+            }
         </div>
     )
 }

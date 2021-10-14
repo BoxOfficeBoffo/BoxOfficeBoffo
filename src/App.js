@@ -1,7 +1,6 @@
 import './App.css';
 import Catalogue from './components/Catalogue.js';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-// import UserRankingList from './components/UserRankingList.js';
 import DisplayUserLists from './components/DisplayUserLists.js';
 import ResultsPage from './components/ResultsPage.js';
 import Nav from './components/Nav.js';
@@ -23,10 +22,6 @@ function App() {
         <Route exact path="/">
           <Catalogue />
         </Route>
-
-        {/* <Route path="/user/rankingList">
-          <UserRankingList />
-        </Route> */}
 
         <Route path="/user/myList">
           <DisplayUserLists />
