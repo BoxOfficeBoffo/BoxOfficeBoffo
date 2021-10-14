@@ -1,61 +1,56 @@
-import { useEffect, useState } from 'react';
-import realtime from '../firebase.js';
-import { ref, onValue } from 'firebase/database';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+// import { useEffect, useState } from 'react/cjs/react.development';
+// import realtime from '../firebase.js';
+// import { ref, onValue } from 'firebase/database';
+// import { Router } from 'react-router';
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const UsersFinalList = () => {
 
-    const [ userLists, setUserLists ] = useState([]);
+    // const [ moviesLists, setMovieLists ] = useState([]);
 
     // Firebase Auth
-    const [signedIn, setSignedIn] = useState(false);
-    const auth = getAuth();
-    let user;
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setSignedIn(true)
-                console.log(user.uid);
-                user = user.uid;
-            } else {
-                setSignedIn(false)
-            }
-        });
-    }, [])
+    // const [signedIn, setSignedIn] = useState(false);
+    // const auth = getAuth();
+    // // let userName;
+    // useEffect(() => {
+    //     onAuthStateChanged(auth, () => {
+    //         if () {
+    //             setSignedIn(true)
+    //             // userName = user.uid;
+    //         } else {
+    //             setSignedIn(false)
+    //         }
+    //     });
+    // }, [])
 
 
 
     // FIREBASE SETUP
-    useEffect (() => {
+    // useEffect(() => {
         // Reference the realtime database from firebase
-        const dbRef = ref(realtime);
-        
-        // Upon data input, onValue to look for changes and read from the database
-        onValue(dbRef, (snapshot) => {
-            const myData = snapshot.val();
+        // const dbRef = ref(realtime);
 
-            for (let propName in myData) {
-                // Save the loop in a new variable
-                const listObject = {
-                    key: propName,
-                    list: myData[propName]
-                }
-            
-            //     // Push all new input on to the notesObject onto the Array
-            //     newArray.push(listObject)
-            //     }
-            // // Passing our state the array
-            // setUserLists(newArray);
-            // });
-            
-        // }, []);
-            }})
-        })
+        // Upon data input, onValue to look for changes and read from the database
+        // onValue(dbRef, (snapshot) => {
+            // const myData = snapshot.val();
+
+            // Empty array for the notes object
+            // const newArray = [];
+
+            // const userInfo = myData.users.jam;
+            // console.log(userInfo);
+            // const userDB = userInfo;
+
+
+        // })
+    // })
 
     return (
         <div>
-            <p>Tis a fake!</p>
-            <ul>
+            {/* {signedIn ?
+                <> */}
+                    <p>Tis a fake!</p>
+                    {/* <ul>
                 return (
                     {userLists.map((user, index) => {
                         return (
@@ -70,8 +65,11 @@ const UsersFinalList = () => {
                         }
                     )}
                 )
-            </ul>
-            <button></button>
+            </ul> */}
+                    <button></button>
+                {/* </>
+                : null
+            } */}
         </div>
     )
 }

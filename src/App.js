@@ -1,7 +1,7 @@
 import './App.css';
 import Catalogue from './components/Catalogue.js';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import UserRankingList from './components/UserRankingList.js';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+// import UserRankingList from './components/UserRankingList.js';
 import DisplayUserLists from './components/DisplayUserLists.js';
 import ResultsPage from './components/ResultsPage.js';
 import Nav from './components/Nav.js';
@@ -12,10 +12,10 @@ function App() {
   return (
     <Router>
       <header>
-          <div className="headerContainer">
-            {/* <img src={goldStars} alt="Seven gold stars in an arch" className="goldStars"/> */}
+          <div className="headerContainer wrapper">
+            <img src={goldStars} alt="Seven gold stars in an arch" className="goldStars"/>
             <h1>Box Office Buster</h1>
-            {/* <img src={movieReel} alt="Clipart of a movie reel" className="movieReel"/> */}
+            <img src={movieReel} alt="Clipart of a movie reel" className="movieReel"/>
           </div>
         <Nav />
       </header>

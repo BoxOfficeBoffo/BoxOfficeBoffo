@@ -1,7 +1,7 @@
-import realtime from '../firebase.js';
-import { ref, child, set } from 'firebase/database';
-import { Link } from 'react-router-dom';
-import UserRankingList from './UserRankingFirebase.js';
+
+
+
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from 'react';
 
@@ -12,18 +12,15 @@ const DisplayCatalogue = (props) => {
     // Firebase Auth
     const [signedIn, setSignedIn] = useState(false);
     const auth = getAuth();
-    let user;
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setSignedIn(true)
-                console.log(user.uid);
-                user = user.uid;
             } else {
                 setSignedIn(false)
             }
         });
-    }, [])
+    }, [auth])
     
 
 
@@ -45,7 +42,7 @@ const DisplayCatalogue = (props) => {
                                     return (
                                         <li key={individualMovie.id} onClick={() => props.handleSelectMovie(individualMovie.id, individualMovie.title, individualMovie.poster_path)}>
                                             {
-                                                props.selectedMovies.findIndex((item) => item.id == individualMovie.id) >= 0 ?
+                                                props.selectedMovies.findIndex((item) => item.id === individualMovie.id) >= 0 ?
                                                     <div className="selected">selected test</div> :
                                                     <div className="notSelected"></div>
                                             }

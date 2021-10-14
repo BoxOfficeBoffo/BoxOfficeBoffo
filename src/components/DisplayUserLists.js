@@ -26,7 +26,7 @@ const DisplayUserLists = (props) => {
             setUserList(userListNames);
         });
 
-    }, []);
+    }, [userName]);
 
     return (
         <div className="displayUserLists">
