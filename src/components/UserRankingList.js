@@ -21,7 +21,6 @@ const UserRankingList = (props) => {
             if (user) {
                 setSignedIn(true)
                 setUserName(user.uid);
-
             } else {
                 setSignedIn(false)
             }
@@ -132,7 +131,8 @@ const UserRankingList = (props) => {
                                                 Create New List
                                             </button>
 
-                                            <Link to="/user/myList">
+                                            {/* <Link to="/user/myList"> */}
+                                            <Link to={`/${userName}/myList`}>
                                                 <button>My Lists</button>
                                             </Link>
                                         </div>

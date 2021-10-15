@@ -2,7 +2,6 @@ import './App.css';
 import Catalogue from './components/Catalogue.js';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import DisplayUserLists from './components/DisplayUserLists.js';
-import ResultsPage from './components/ResultsPage.js';
 import Nav from './components/Nav.js';
 import goldStars from './assets/goldStars.png'
 import movieReel from './assets/movieReel.png'
@@ -23,12 +22,8 @@ function App() {
           <Catalogue />
         </Route>
 
-        <Route path="/user/myList">
+        <Route path="/:userName/myList">
           <DisplayUserLists />
-        </Route>
-
-        <Route path="/user/results">
-          <ResultsPage />
         </Route>
 
       </div>
