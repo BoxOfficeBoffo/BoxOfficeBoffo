@@ -62,6 +62,10 @@ a {
 li {
   list-style: none;
 }
+button:hover,
+button:focus {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
 /*================================================================================================================
 HEADER STLYES
@@ -231,7 +235,6 @@ main {
   background-color: #a9caee;
   border: 3px solid #070670;
   color: #070670;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 /* CATALOGUE */
@@ -296,7 +299,6 @@ USER RANK PAGE
   margin: 0;
   padding: 1rem;
   font-size: 1.8rem;
-  
 }
 
 .displayMovieList {
@@ -333,19 +335,19 @@ USER RANK PAGE
 }
 
 .movieContainer h5 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  overflow: hidden;
+
 }
 
 .movieContainer form select {
   display:flex;
-  
 }
 
 .createListPagebuttons {
   display:flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 1280px;
+  justify-content: space-evenly;
 }
 
 .button {
@@ -379,10 +381,9 @@ USER RANK PAGE
 .myListButton:active,
 .myListButton:hover,
 .myListButton:focus {
-  color: white;
+  color: #070670;
   background-color: #91CEFF;
 }
-
 
 /*==============================================================================================================
 USER LIST PAGE 
