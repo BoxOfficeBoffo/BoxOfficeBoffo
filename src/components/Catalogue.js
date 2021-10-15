@@ -81,6 +81,9 @@ const Catalogue = () => {
       //if there is no result an alert pops up (error handle)
       if (shuffledResult.length < 1) {
         alert('No movie results found')
+      } else if (shuffledResult.length < 9) {
+        alert('Sorry, there are not enough movies to choose from')
+        setMovies([])
       }
     })
     //empty user selection when they they submit a new search.
