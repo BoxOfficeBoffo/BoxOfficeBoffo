@@ -341,11 +341,11 @@ USER RANK PAGE
   
 }
 
-.createListPagebuttons button {
+.createListPagebuttons {
   display:flex;
-  /* flex-direction: row; */
-  /* justify-content: space-between; */
-  
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1280px;
 }
 
 .button {
@@ -388,11 +388,17 @@ USER RANK PAGE
 USER LIST PAGE 
 ================================================================================================================*/
 
+
+
 .displayUserLists ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+.displayUserLists h4 {
+  text-transform: uppercase;
+} 
 
 .displayUserLists li {
   display: flex;
@@ -409,7 +415,21 @@ USER LIST PAGE
 }
 
 .displayUserLists p {
-  overflow-wrap: break-word;
+  overflow-wrap: none;
+
+}
+
+.deleteListBtn {
+  border-style: none;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  color: #070670;
+  font-size: 1.8rem;
+  width: 80px;
+}
+
+.deleteListBtn:hover {
+  background: #FBD400;
 }
 
 
