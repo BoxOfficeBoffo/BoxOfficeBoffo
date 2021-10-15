@@ -59,7 +59,7 @@ const DisplayMovieInfo = (props) => {
                                             <p>{individualMovie.title}</p>
                                             {
                                                 individualMovie.poster
-                                                    ? <img src={`https://image.tmdb.org/t/p/w500/${individualMovie.poster}`} alt={`Poster for ${individualMovie.title}`} />
+                                                    ? <img src={`https://image.tmdb.org/t/p/w200/${individualMovie.poster}`} alt={`Poster for ${individualMovie.title}`} />
                                                     : <div className="emptyPoster"></div>
                                             }
                                         </li>

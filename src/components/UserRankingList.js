@@ -94,7 +94,7 @@ const UserRankingList = (props) => {
                                                         <p>Your Rank: {test[index]}</p>
                                                         {
                                                             movie.poster_path?
-                                                                <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster for ${movie.title}`} />
+                                                                <img src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`} alt={`Poster for ${movie.title}`} />
                                                                 : <div className="emptyPoster"></div>
                                                         }
                                                         <form>
