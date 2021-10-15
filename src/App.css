@@ -152,6 +152,17 @@ main {
   background-repeat: no-repeat;
 }
 
+.loginPlz {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background-color: #fbd50083;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
 /* Intro */
 .intro {
   display: flex;
@@ -196,6 +207,7 @@ main {
 .intro li {
   list-style-type: decimal;
   color: white;
+  line-height: 2rem;
 }
 
 .fiveStars {
@@ -363,6 +375,15 @@ USER RANK PAGE
   flex-direction: row;
   justify-content: space-between;
   width: 1280px;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.error {
+  color: rgb(107, 20, 5);
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 .button {
@@ -399,6 +420,7 @@ USER RANK PAGE
   color: white;
   background-color: #91CEFF;
 }
+
 
 
 /*==============================================================================================================
@@ -620,5 +642,15 @@ MEDIA QUERIES
   .movieReel,
   .goldStars {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .createListPagebuttons
+  {
+    flex-direction: column;
+  }
+  .myListButton {
+    width: 92%;
   }
 }

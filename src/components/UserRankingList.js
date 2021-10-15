@@ -120,19 +120,19 @@ const UserRankingList = (props) => {
                                                 )
                                             })
                                         }
+                                    </ul>
                                         {
                                             error ?
-                                                <p>{error}</p>
+                                                <p className="error">{error}</p>
                                                 : null
                                         }
-                                    </ul>
                                     <div className="createListPagebuttons">
-                                        <button className="button saveListButton" onClick={errorHandle}>Save List</button>
                                         <button
                                             className="button newListButton"
                                             onClick={handleShowCatalogue}>
-                                            Create New List
+                                            New List
                                         </button>
+                                        <button className="button saveListButton" onClick={errorHandle}>Save Your List</button>
 
                                         {/* <Link to="/user/myList"> */}
                                         <Link to={`/${userName}/myList`}>
