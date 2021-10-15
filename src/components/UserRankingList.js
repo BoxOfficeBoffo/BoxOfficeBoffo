@@ -74,7 +74,7 @@ const UserRankingList = (props) => {
     }
 
     return (
-        <main>
+        <div className="ranking">
             {
                 signedIn ?
                     <>
@@ -83,36 +83,40 @@ const UserRankingList = (props) => {
                                 <Catalogue />
                                 :
                                 <>
-                                    <div className="displayMovieList">
-                                        <h3>{props.listName}</h3>
+                                    <h3>{props.listName}</h3>
+                                    <ul className="displayMovieList">
                                         {
                                             props.selectedMovies.map((movie, index) => {
                                                 return (
-                                                    <div key={index} className="movieContainer">
-                                                        <h5>{movie.title}</h5>
-                                                        <p>Your Rank: {test[index]}</p>
-                                                        {
-                                                            movie.poster_path?
-                                                                <img src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`} alt={`Poster for ${movie.title}`} />
-                                                                : <div className="emptyPoster"></div>
-                                                        }
-                                                        <form>
-                                                            <select id="ranking" name="ranking" onChange={handleUserInput} data-array-index={index}>
-                                                                <option value="placeholder" disabled>Pick one:</option>
-                                                                <option value="0"></option>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6</option>
-                                                                <option value="7">7</option>
-                                                                <option value="8">8</option>
-                                                                <option value="9">9</option>
-                                                                <option value="10">10</option>
-                                                            </select>
-                                                        </form>
-                                                    </div>
+                                                    <li key={index} className="movieContainer">
+                                                        <div className="userRankInfo">
+                                                            <h5>{movie.title}</h5>
+                                                            <p>Your Rank: {test[index]}</p>
+                                                            {
+                                                                movie.poster_path ?
+                                                                    <img src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`} alt={`Poster for ${movie.title}`} />
+                                                                    : <div className="emptyPoster"></div>
+                                                            }
+                                                        </div>
+                                                        <div className="userRank">
+                                                            <form>
+                                                                <select id="ranking" name="ranking" onChange={handleUserInput} data-array-index={index}>
+                                                                    <option value="placeholder" disabled>Pick one:</option>
+                                                                    <option value="0"></option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                    <option value="7">7</option>
+                                                                    <option value="8">8</option>
+                                                                    <option value="9">9</option>
+                                                                    <option value="10">10</option>
+                                                                </select>
+                                                            </form>
+                                                        </div>
+                                                    </li>
                                                 )
                                             })
                                         }
@@ -121,29 +125,28 @@ const UserRankingList = (props) => {
                                                 <p>{error}</p>
                                                 : null
                                         }
+                                    </ul>
+                                    <div className="createListPagebuttons">
+                                        <button className="button saveListButton" onClick={errorHandle}>Save List</button>
+                                        <button
+                                            className="button newListButton"
+                                            onClick={handleShowCatalogue}>
+                                            Create New List
+                                        </button>
 
-                                        <div className="createListPagebuttons">
-
-                                            <button onClick={errorHandle}>Save List</button>
-
+                                        {/* <Link to="/user/myList"> */}
+                                        <Link to={`/${userName}/myList`}>
                                             <button
-                                                onClick={handleShowCatalogue}>
-                                                Create New List
-                                            </button>
-
-                                            {/* <Link to="/user/myList"> */}
-                                            <Link to={`/${userName}/myList`}>
-                                                <button>My Lists</button>
-                                            </Link>
-                                        </div>
-
+                                                className="button myListButton"
+                                            >My Lists</button>
+                                        </Link>
                                     </div>
                                 </>
                         }
                     </>
                     : null
             }
-        </main>
+        </div>
     )
 }
 
