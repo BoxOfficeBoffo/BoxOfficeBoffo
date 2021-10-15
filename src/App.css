@@ -26,6 +26,7 @@ yellow: #FCDC74 */
 /* GLOBAL STYLES */
 html {
   font-size: 125%;
+  background-color: rgb(95, 167, 222);
 }
 
 body {
@@ -62,9 +63,9 @@ li {
   list-style: none;
 }
 
-/*=============
+/*================================================================================================================
 HEADER STLYES
-=============*/
+================================================================================================================*/
 
 header {
   background-color: #070670;
@@ -92,7 +93,7 @@ h1 {
 
 .goldStars {
   position: relative;
-  top: -30px;
+  top: -58px;
   left: 120px;
   width: 200px;
   max-width: 100%;
@@ -124,6 +125,7 @@ nav li {
   color: azure;
   font-weight: bold;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 nav li:hover {
@@ -139,9 +141,9 @@ li a:hover {
   color: #FBD400;
 }
 
-/*====================
+/*================================================================================================================
 BODY STLYES
-======================*/
+================================================================================================================*/
 
 main {
   background-image: url('./assets/backgroundImage.jpg');
@@ -190,17 +192,46 @@ main {
 /* FORM */
 .catalogueForm {
   background-color: #FBD400;
+  font-size: 1.2rem;
   padding: 20px;
   text-align: center;
+  width: 100%;
 }
 
 .catalogueForm label {
   font-weight: bold;
-  padding: 0 10px;
+}
+
+.catalogueForm input {
+  background-color: whitesmoke;
+  border: 2px solid #070670;
+  border-radius: 4px;
+  text-align: center;
+  height: 40px;
+  margin: 0 10px;
+}
+
+.catalogueForm input:focus {
+  background-color: #a9caee;
+  color: #070670;
 }
 
 .catalogueForm button {
-  border-style: none;
+  background-color: #070670;
+  color: #FBD400;
+  width: 175px;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.catalogueForm button:hover,
+.catalogueForm button:focus {
+  background-color: #a9caee;
+  border: 3px solid #070670;
+  color: #070670;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 /* CATALOGUE */
@@ -212,12 +243,14 @@ main {
 
 .displayCatalogue h2 {
   text-align: center;
+  padding-top: 15px;
 }
 
 .displayCatalogueList {
   background-color: #91CEFF;
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
@@ -254,9 +287,9 @@ i {
   }
 }
 
-/*=================
+/*==============================================================================================================
 USER RANK PAGE 
-===================*/
+===============================================================================================================*/
 
 .ranking h3 {
   text-align: center;
@@ -351,9 +384,9 @@ USER RANK PAGE
 }
 
 
-/*=================
+/*==============================================================================================================
 USER LIST PAGE 
-===================*/
+================================================================================================================*/
 
 .displayUserLists ul {
   display: flex;
@@ -380,9 +413,9 @@ USER LIST PAGE
 }
 
 
-/*===================
+/*================================================================================================================
 TOP MOVIE LIST STLYES
-===================*/
+================================================================================================================*/
 .topMovieContainer {
   display: flex;
   flex-direction: row;
@@ -411,9 +444,9 @@ TOP MOVIE LIST STLYES
   text-align: center;
 }
 
-/* =====================
+/* ================================================================================================================
 MODAL STYLES
-===================== */
+================================================================================================================ */
 .modal {
   position:fixed;
   right: 0;
@@ -470,9 +503,9 @@ MODAL STYLES
   flex: 1 1 auto;
 }
 
-/*============= 
+/*================================================================================================================
 FOOTER STLYES
-=============*/
+================================================================================================================*/
 footer {
   background-color: #070670;
   text-align: center;
@@ -495,5 +528,34 @@ MEDIA QUERIES
 @media (max-width: 1132px) {
   .movieReel {
     bottom: -86px;
+  }
+}
+
+@media (max-width: 1059px) {
+  .goldStars {
+    top: -108px;
+  }
+}
+
+@media (max-width: 1000px) {
+  h1 {
+    font-size: 3rem;
+  }
+  .movieReel {
+    width: 180px;
+    bottom: -35px;
+  }
+  .goldStars {
+    top: -40px;
+  }
+}
+
+@media (max-width: 800px) {
+  .catalogueForm button {
+    margin-top: 10px;
+  }
+  .movieReel,
+  .goldStars {
+    display: none;
   }
 }
