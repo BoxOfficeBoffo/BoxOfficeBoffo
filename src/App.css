@@ -161,7 +161,6 @@ main {
   justify-content: center;
   align-items: center;
   padding: 30px;
-  /* border-bottom: 5px solid #FBD400; */
   border-width: 6px;
   border-style: solid;
   border-image: 
@@ -264,7 +263,7 @@ main {
   padding: 20px;
 }
 
-i {
+.fa-star {
   position: relative;
   left: -95px;
   top: 15px;
@@ -273,7 +272,7 @@ i {
   text-shadow: 2px 2px #070670;
 }
 
-.fas {
+.fa-star {
   animation: rotation 4s infinite linear;
 
 }
@@ -388,6 +387,21 @@ USER RANK PAGE
 USER LIST PAGE 
 ================================================================================================================*/
 
+.displayUserLists h2{
+  background-color:#FBD400;
+  text-align: center;
+  padding: 20px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px white;
+  border-width: 8px;
+  border-style: solid;
+  border-image: 
+    linear-gradient(
+      to bottom, 
+      #FBD400, 
+      #91ceff88
+    ) 1 100%;
+}
 
 
 .displayUserLists ul {
@@ -398,6 +412,9 @@ USER LIST PAGE
 
 .displayUserLists h4 {
   text-transform: uppercase;
+  background-color:#FBD400;
+  padding: 15px;
+  border-bottom: 5px solid #070670;
 } 
 
 .displayUserLists li {
@@ -416,16 +433,23 @@ USER LIST PAGE
 
 .displayUserLists p {
   overflow-wrap: none;
-
 }
 
 .deleteListBtn {
   border-style: none;
-  overflow: hidden;
   transition: all 0.3s ease;
   color: #070670;
   font-size: 1.8rem;
-  width: 80px;
+  border-radius: 50px;
+  height: 70px;
+  width: 70px;
+  margin: 10px 10px;
+}
+
+.fa-trash {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 15px;
 }
 
 .deleteListBtn:hover {
@@ -533,6 +557,7 @@ footer {
   padding: 10px 0;
   border-top: 5px solid #FBD400;
   padding: 15px;
+
 }
 
 footer a {

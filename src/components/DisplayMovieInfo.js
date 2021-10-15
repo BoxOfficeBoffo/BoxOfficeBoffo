@@ -69,7 +69,7 @@ const DisplayMovieInfo = (props) => {
                             }
                         </ul>
                         {/* onClick, send the listName to handleListDelete so that a reference path can be created */}
-                        <button onClick={clickedDeleteButton} className="deleteListBtn">Delete</button>
+                        <button onClick={clickedDeleteButton} className="deleteListBtn"><i class="fas fa-trash"></i></button>
                         {
                             // only call display modal when needed
                             callModal?
