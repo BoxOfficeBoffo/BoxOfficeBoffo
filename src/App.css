@@ -36,7 +36,8 @@ h1,
 p, 
 h2, 
 ul, 
-li {
+li,
+h5 {
   margin: 0;
   padding: 0;
 }
@@ -47,9 +48,11 @@ li {
   margin: 0 auto;
 }
 
-.selected {
+/* REMOVE LATER, NO LONGER NEED IT */
+
+/* .selected {
   border: 5px solid #FBD400;
-}
+} */
 
 a {
   text-decoration: none;
@@ -59,9 +62,9 @@ li {
   list-style: none;
 }
 
-/************* 
+/*=============
 HEADER STLYES
-*************/
+=============*/
 
 header {
   background-color: #070670;
@@ -107,13 +110,14 @@ h1 {
 
 /* NAV */
 nav {
-  background-color: #03023d;
+  background-color: #0a0042;
+  border-bottom: 5px solid #FBD400;
 }
 
 nav ul { 
   display: flex;
   justify-content: space-around;
-  padding: 10px;  
+  padding: 15px;  
 }
 
 nav li {
@@ -126,20 +130,43 @@ nav li:hover {
   color: #FBD400;
 }
 
-/************ 
-BODY STLYES
-************/
-body {
-  background-color: #91CEFF;
+li a:visited {
+  text-decoration: none;
+  color: azure;
+}
 
+li a:hover {
+  color: #FBD400;
+}
+
+/*====================
+BODY STLYES
+======================*/
+
+main {
+  background-image: url('./assets/backgroundImage.jpg');
+  background-size: contain;
+  background-position: center;
 }
 
 /* Intro */
 .intro {
   display: flex;
-  width: 100vw;
-  background-color: #0b84b4;
+  flex-direction: column;
+  width: 100%;
+  background-color: #080670ad;
   justify-content: center;
+  align-items: center;
+  padding: 30px;
+  /* border-bottom: 5px solid #FBD400; */
+  border-width: 6px;
+  border-style: solid;
+  border-image: 
+    linear-gradient(
+      to bottom, 
+      #FBD400, 
+      rgba(0, 0, 0, 0)
+    ) 1 100%;
 }
 
 .intro p {
@@ -151,13 +178,74 @@ body {
   text-shadow: 2px 2px #070670;
 }
 
-.displayCatalogue {
-  background-color: #91CEFF;
+.fiveStars {
+  position: relative;
+  bottom: 2px;
+  width: 200px;
+  filter: brightness(130%);
+  max-width: 100%;
 }
 
-/************ 
+/* FORM */
+.catalogueForm {
+  background-color: #FBD400;
+}
+
+/* CATALOGUE */
+
+.displayCatalogue {
+  background-color: #91CEFF ;
+
+}
+
+.displayCatalogue h2 {
+  text-align: center;
+}
+
+.displayCatalogueList {
+  background-color: #91CEFF;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.displayCatalogueList ul {
+  padding: 0;
+}
+
+.displayCatalogueList li {
+  text-align: center;
+  width: 300px;
+  padding: 20px;
+}
+
+i {
+  position: relative;
+  left: -95px;
+  top: 15px;
+  color:#FBD400; 
+  font-size: 1.8rem;
+  text-shadow: 2px 2px #070670;
+}
+
+.fas {
+  animation: rotation 4s infinite linear;
+
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+
+/*===================
 TOP MOVIE LIST STLYES
-************/
+===================*/
 .topMovieContainer {
   display: flex;
   flex-direction: row;
@@ -186,14 +274,75 @@ TOP MOVIE LIST STLYES
   text-align: center;
 }
 
-/************ 
+/* =====================
+MODAL STYLES
+===================== */
+.modal {
+  position:fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: -3rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.modalContent {
+  width: 70%;
+  max-width: 700px;
+  border-radius: 15px;
+  border: 5px solid #3E6765;
+  padding: .5rem;
+  color: #000;
+  background-color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.closeButton {
+  position: absolute;
+  background-color: crimson;
+  right: .5rem;
+  top: .5rem;
+}
+.closeButton:active,
+.closeButton:focus-within,
+.closeButton:hover {
+  background-color: rgb(133, 14, 38);
+}
+.saveButton {
+  background-color: green;
+}
+.saveButton:active,
+.saveButton:focus-within,
+.saveButton:hover {
+  background-color: rgb(0, 90, 0);
+}
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0 1rem;
+}
+.modalListTitle {
+  display: flex;
+}
+.modalListTitle input {
+  flex: 1 1 auto;
+}
+
+/*============= 
 FOOTER STLYES
-************/
+=============*/
 footer {
   background-color: #070670;
   text-align: center;
   color: #FBD400;
   padding: 10px 0;
+  border-top: 5px solid #FBD400;
+  padding: 15px;
 }
 
 footer a {
