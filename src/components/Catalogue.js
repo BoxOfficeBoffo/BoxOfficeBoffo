@@ -197,7 +197,7 @@ const Catalogue = () => {
                 </div>
             }
           </>
-          : null
+          : <h2 className="loginPlz">Please login!</h2>
       }
     </>
   )
