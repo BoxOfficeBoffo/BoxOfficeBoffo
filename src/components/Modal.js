@@ -7,10 +7,11 @@ const Modal = (props) => {
 
     useEffect(() => {
         // checks where the modal is being called from
-        if (props.from === "displayMovieInfo") {
+        const checkLocation = props.from;
+        if (checkLocation === "displayMovieInfo") {
             setFromCatalogue(false)
             setModalQuestion("Are you sure you want to delete this list?")
-        } else if (props.from === "catalogue") {
+        } else if (checkLocation === "catalogue") {
             setFromCatalogue(true)
             setModalQuestion("Are you finished with your selection? If so please enter a title for your selection and click next to choose ranking")
         }
