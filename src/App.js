@@ -17,6 +17,7 @@ function App() {
           </div>
         <Nav />
       </header>
+      <main>
       <div className="wrapper">
         <Route exact path="/">
           <Catalogue />
@@ -27,6 +28,7 @@ function App() {
         </Route>
 
       </div>
+      </main>
       <footer>
         <p>Created © <a href="https://junocollege.com/">Juno College </a>2021</p>
       </footer>

@@ -30,19 +30,19 @@ const DisplayCatalogue = (props) => {
                             <h2>Here are the movies released in {year}</h2>:
                             null
                         }
-                        <ul>
+                        <ul className="displayCatalogueList">
                             {
                                 movies.map((individualMovie) => {
                                     return (
                                         <li key={individualMovie.id} onClick={() => props.handleSelectMovie(individualMovie.id, individualMovie.title, individualMovie.poster_path)}>
                                             {
                                                 props.selectedMovies.findIndex((item) => item.id === individualMovie.id) >= 0 ?
-                                                    <div className="selected">selected test</div> :
-                                                    <div className="notSelected"></div>
+                                                    <div className="selected"><i aria-hidden="true" className="fas fa-star" title="Select this movie"></i></div> :
+                                                    <div aria-hidden="true" className="notSelected" title="Deselect this movie"><i className="far fa-star"></i></div>
                                             }
                                             {
                                                 individualMovie.poster_path
-                                                    ? <img src={`https://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`} alt={`Poster for ${individualMovie.title}`} />
+                                                    ? <img src={`https://image.tmdb.org/t/p/w200/${individualMovie.poster_path}`} alt={`Poster for ${individualMovie.title}`} />
                                                     : <div className="emptyPoster"></div>
                                             }
                                             <h3>{individualMovie.title}</h3>
