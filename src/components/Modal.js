@@ -28,22 +28,20 @@ const Modal = (props) => {
                 {
                     fromCatalogue ?
                         <form className="modalBody" onSubmit={(e) => props.handleSubmitMovieList(e)}>
-                            <label htmlFor="newListName">Give a name to your list!</label>
-                            <div className="modalListTitle">
-                                <input
-                                    type="text"
-                                    id="newListName"
-                                    placeholder={`my ${props.year} list`}
-                                />
-                                <button className="saveButton" type="submit" >Next</button>
-                            </div>
+                            <label htmlFor="newListName">Give a name to your list:</label>
+                            <input
+                                type="text"
+                                id="newListName"
+                                placeholder={`ex: My ${props.year} list`}
+                            />
+                            <button className="saveButton" type="submit" >Next</button>
                             <button className="closeButton" onClick={props.onClose}>Cancel</button>
                         </form>
                         :
-                        <>
-                            <button className="deleteButton" onClick={props.handleListDelete}>Delete</button>
+                        <div className="displayMovieButtonContainer">
+                            <button className="modalDeleteButton" onClick={props.handleListDelete}>Delete</button>
                             <button className="closeButton" onClick={props.onClose}>Cancel</button>
-                        </>
+                        </div>
 
                 }
             </div>
