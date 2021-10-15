@@ -3,6 +3,7 @@ import axios from 'axios';
 import DisplayCatalogue from './DisplayCatalogue';
 import UserRankingList from './UserRankingList';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import fiveStarRating from '../assets/fiveStarRating.png';
 import Modal from './Modal';
 
 
@@ -148,8 +149,9 @@ const Catalogue = () => {
                   selectedMovies={selectedMovies}
                 /> :
                 <div>
-                  <div className="intro">
+                  <div className="intro wrapper">
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit quibusdam fugit veniam eos nostrum incidunt, hic iste voluptates atque dignissimos error, tenetur tempora. Quo natus assumenda autem eum rerum perferendis? Rank movies from 1-10!</p>
+                    <img src={fiveStarRating} alt="Five gold stars in an arch" className="fiveStars"/>
                   </div>
                   <div className="catalogueForm wrapper">
                     <form onSubmit={handleSubmit}>
