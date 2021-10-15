@@ -1,7 +1,3 @@
-
-
-
-
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from 'react';
 
@@ -23,19 +19,17 @@ const DisplayCatalogue = (props) => {
     }, [auth])
     
 
-
-
-
     return (
         <div className="displayCatalogue wrapper">
             {
                 signedIn ?
                     <>
-                        {/* <Link to="/user/rankingList"> */}
-                            <button onClick={(e) => props.handleSubmitMovieList(e)}>next page</button>
-                        {/* </Link> */}
-
-                        <h2>Here are the movies released in {year}</h2>
+                    {/* if no movies, do not display text */}
+                        {
+                            movies.length > 0 ?
+                            <h2>Here are the movies released in {year}</h2>:
+                            null
+                        }
                         <ul className="displayCatalogueList">
                             {
                                 movies.map((individualMovie) => {

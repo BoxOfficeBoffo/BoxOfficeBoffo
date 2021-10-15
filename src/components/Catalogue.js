@@ -4,6 +4,8 @@ import DisplayCatalogue from './DisplayCatalogue';
 import UserRankingList from './UserRankingList';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import fiveStarRating from '../assets/fiveStarRating.png';
+import Modal from './Modal';
+
 
 let submittedYear = ""
 const Catalogue = () => {
@@ -31,6 +33,10 @@ const Catalogue = () => {
   const [selectedMovies, setSelectedMovies] = useState([])
   //sorting page state
   const [showSortPage, setShowSortPage] = useState(false)
+  //state for list name
+  const [listName, setListName] = useState("")
+  //Show Modal for List Creation
+  const [showModalListCreation, setShowModalListCreation] = useState(false)
 
 
   const handleChange = (e) => {
@@ -72,7 +78,10 @@ const Catalogue = () => {
       }
       const shuffledResult = shuffleResult(res.data.results);
       setMovies(shuffledResult);
-      // console.log(res.data.results, "res");
+      //if there is no result an alert pops up (error handle)
+      if (shuffledResult.length < 1) {
+        alert('No movie results found')
+      }
     })
     //empty user selection when they they submit a new search.
     setSelectedMovies([]);
@@ -82,6 +91,8 @@ const Catalogue = () => {
   //It will add the selected movie to the state "selectedMovies". 
   //If the movie has already been selected, it will be removed.
   const handleSelectMovie = (id, title, poster) => {
+    //Set show modal to false by default
+    setShowModalListCreation(false);
     //findIndex returns the index of the first element in the array that satisfies condition
     const selectedMovieIndex = selectedMovies.findIndex((element) => element.id === id)
     //if the selected movie is already in the list, remove the selected movie.
@@ -102,19 +113,25 @@ const Catalogue = () => {
         const movieArray = selectedMovies.slice();
         movieArray.push(selectedMovie);
         setSelectedMovies(movieArray);
-      } else {
-        alert("You have selected 10 movies! Click next if you are ready.")
+        //if this is the 10th selected movie show the modal to give it a name
+        if (movieArray.length === 10) {
+          setShowModalListCreation(true);
+        }
       }
     }
     // console.log(typeof(selectedMovies[0].id), "type of selectedMovies move id")
   }
 
+  //function to handle list name
   const handleSubmitMovieList = (e) => {
-    if (selectedMovies.length <= 9) {
-      e.preventDefault()
-      alert('please choose 10 movies')
-    } else {
+    //if input has value set list name and go to sort page
+    if (e.target.newListName.value) {
+      setListName(e.target.newListName.value);
       setShowSortPage(true);
+      setShowModalListCreation(false);
+    } else {
+      e.preventDefault()
+      alert('Please enter a list name');
     }
   }
 
@@ -127,7 +144,7 @@ const Catalogue = () => {
             {
               showSortPage ?
                 <UserRankingList
-                  listName={`list${submittedYear}`}
+                  listName={listName}
                   year={submittedYear}
                   selectedMovies={selectedMovies}
                 /> :
@@ -155,6 +172,16 @@ const Catalogue = () => {
                     theMovies={movies}
                     year={submittedYear}
                   />
+                  {
+                    showModalListCreation?
+                      <Modal
+                        handleSubmitMovieList={(e) => handleSubmitMovieList(e)}
+                        year={submittedYear}
+                        onClose={() => setShowModalListCreation(false)}
+                        from="catalogue"
+                      />
+                      :null
+                  }
                 </div>
             }
           </>

@@ -1,7 +1,7 @@
-import realtime from '../firebase.js';
-import { ref, child, push } from 'firebase/database';
+import realtime from './firebase.js';
+import { ref, child, set } from 'firebase/database';
 
-const UserRankingList = (props) => {
+const userRankingList = (props) => {
     const movies = [...props.selectedMovies];
 
     // sorts the movies by rank desc 1-10
@@ -14,7 +14,7 @@ const UserRankingList = (props) => {
 
     // variable with reference to the specified relative path
     const userListRef = child(dbRef, `${props.userName}/${props.year}/${props.listName}`)
-    push(userListRef, movies);
+    set(userListRef, movies);
 }
 
-export default UserRankingList;
+export default userRankingList;
