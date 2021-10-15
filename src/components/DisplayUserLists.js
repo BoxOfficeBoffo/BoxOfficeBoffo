@@ -32,6 +32,7 @@ const DisplayUserLists = () => {
                     for (let yearProperty in listByYear) {
                         theYears.push(yearProperty);
                     }
+                    // set the year to listYears and setInfo to true
                     setListYears(theYears);
                     setHaveInfo(true);
                 });
@@ -52,6 +53,7 @@ const DisplayUserLists = () => {
                             haveInfo ?
                                 listYears.map((individualYear) => {
                                     return (
+                                        // pass the info to newList component to avoid repeat
                                         <ul className={`year${individualYear}`} key={`year${individualYear}`}>
                                             <NewListDisplay userName={userName} year={individualYear}/>
                                         </ul>

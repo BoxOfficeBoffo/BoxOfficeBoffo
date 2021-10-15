@@ -1,7 +1,3 @@
-
-
-
-
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from 'react';
 
@@ -22,9 +18,6 @@ const DisplayCatalogue = (props) => {
         });
     }, [auth])
     
-
-
-
 
     return (
         <div className="displayCatalogue wrapper">

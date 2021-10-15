@@ -3,7 +3,7 @@ import axios from 'axios';
 import DisplayCatalogue from './DisplayCatalogue';
 import UserRankingList from './UserRankingList';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import ModalListCreation from './ModalListCreation';
+import Modal from './Modal';
 
 
 let submittedYear = ""
@@ -170,12 +170,16 @@ const Catalogue = () => {
                     theMovies={movies}
                     year={submittedYear}
                   />
-                  <ModalListCreation
-                    handleSubmitMovieList={(e) => handleSubmitMovieList(e)}
-                    year={submittedYear}
-                    onClose={() => setShowModalListCreation(false)}
-                    show={showModalListCreation}
-                  />
+                  {
+                    showModalListCreation?
+                      <Modal
+                        handleSubmitMovieList={(e) => handleSubmitMovieList(e)}
+                        year={submittedYear}
+                        onClose={() => setShowModalListCreation(false)}
+                        from="catalogue"
+                      />
+                      :null
+                  }
                 </div>
             }
           </>

@@ -1,12 +1,14 @@
 import { ref, child, onValue, remove } from 'firebase/database';
 import realtime from '../firebase.js';
 import { useState, useEffect } from 'react';
+import Modal from './Modal.js';
 
 const DisplayMovieInfo = (props) => {
     const [movieList, setMovieList] = useState([]);
     // variable to check if the list has been deleted or not
     const [listNotDeleted, setListNotDeleted] = useState(true);
     // using the listName passed as props, create a reference path
+    const [callModal, setCallModal] = useState(false);
     
     useEffect(() => {
         const dbRef = ref(realtime);
@@ -36,13 +38,18 @@ const DisplayMovieInfo = (props) => {
         setListNotDeleted(false);
     }
 
+    const clickedDeleteButton = () => {
+        setCallModal(true);
+    }
+
     return (
         <>
             {
                 // only display list if the list hasn't been deleted
                 listNotDeleted ?
                     (<>
-                        <h5>{props.listName} (Year: {props.year})</h5>
+                        
+                        <h4>{props.listName} (Year: {props.year})</h4>
                         <ul className="theMovies">
                             {
                                 movieList.map((individualMovie) => {
@@ -62,7 +69,20 @@ const DisplayMovieInfo = (props) => {
                             }
                         </ul>
                         {/* onClick, send the listName to handleListDelete so that a reference path can be created */}
-                        <button onClick={handleListDelete}>Delete</button>
+                        <button onClick={clickedDeleteButton}>Delete</button>
+                        {
+                            // only call display modal when needed
+                            callModal?
+                                <Modal 
+                                    from="displayMovieInfo"
+                                    // close modal when not used
+                                    onClose={() => setCallModal(false)}
+                                    // to call the click event in the modal
+                                    handleListDelete={(e) => handleListDelete(e)}
+                                />
+                                : null
+
+                        }
                     </>)
                     : null
             }

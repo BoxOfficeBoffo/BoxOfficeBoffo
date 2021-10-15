@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import UserRankingFirebase from './UserRankingFirebase.js';
+import userRankingFirebase from '../userRankingFirebase.js';
 import { Link } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Catalogue from './Catalogue.js';
@@ -10,7 +10,7 @@ const UserRankingList = (props) => {
     const [signedIn, setSignedIn] = useState(false);
     const [userName, setUserName] = useState("");
     const [error, setError] = useState("");
-    const [linkPath, setLinkPath] = useState(false);
+    // set all to 0 so it can be replaced with the index of the selected movie
     const [test, setTest] = useState(["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]);
     const [showCatalogue, setShowCatalogue] = useState(false);
 
@@ -32,27 +32,30 @@ const UserRankingList = (props) => {
     const handleUserInput = (e) => {
         e.preventDefault();
         if (e.target.value) {
+            // get the index of the clicked array
             const rankIndex = e.target.getAttribute('data-array-index');
             const rank = e.target.value;
 
             const arrayCopy = [...test];
+            // use the index to change the value of the array
             arrayCopy[rankIndex] = rank;
             setTest(arrayCopy)
+            // add the rank number to the movies array as well
             props.selectedMovies[rankIndex].rank = rank;
 
         }
     }
-    
+
     const errorHandle = () => {
+        // checks if user missed ranking any movies 
         if (test.includes("0")) {
             setError("Please make sure all movies are ranked");
-            setLinkPath(false);
         } else {
+            // filters to see if any movies have the same rank
             const findDuplicates = array => array.filter((item, index) => array.indexOf(item) !== index);
             const duplicateElements = findDuplicates(test);
             if (duplicateElements.length !== 0) {
                 setError("You can't assign same ranks to different movies")
-                setLinkPath(false);
             } else {
                 setError("List Saved!");
                 // save list and rank to firebase
@@ -62,8 +65,7 @@ const UserRankingList = (props) => {
                     listName: props.listName,
                     year: props.year
                 }
-                UserRankingFirebase(sendObjectToFirebase);
-                setLinkPath(true);
+                userRankingFirebase(sendObjectToFirebase);
             }
         }
     }
@@ -90,7 +92,11 @@ const UserRankingList = (props) => {
                                                     <div key={index} className="movieContainer">
                                                         <h5>{movie.title}</h5>
                                                         <p>Your Rank: {test[index]}</p>
-                                                        {/* <p>{movie.id}</p> */}
+                                                        {
+                                                            movie.poster_path?
+                                                                <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`Poster for ${movie.title}`} />
+                                                                : <div className="emptyPoster"></div>
+                                                        }
                                                         <form>
                                                             <select id="ranking" name="ranking" onChange={handleUserInput} data-array-index={index}>
                                                                 <option value="placeholder" disabled>Pick one:</option>
@@ -118,17 +124,11 @@ const UserRankingList = (props) => {
                                         }
 
                                         <div className="createListPagebuttons">
-                                            {
-                                                !linkPath ?
-                                                    <button onClick={errorHandle}>Save List</button>
-                                                    :
-                                                    <Link to="/user/results">
-                                                        <button>Show Results</button>
-                                                    </Link>
-                                            }
+
+                                            <button onClick={errorHandle}>Save List</button>
+
                                             <button
-                                                onClick={handleShowCatalogue}
-                                            >
+                                                onClick={handleShowCatalogue}>
                                                 Create New List
                                             </button>
 
