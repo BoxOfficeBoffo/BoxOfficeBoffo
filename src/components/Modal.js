@@ -16,7 +16,7 @@ const Modal = (props) => {
             setModalQuestion("Are you finished with your selection? If so please enter a title for your selection and click next to choose ranking")
         }
 
-    }, [])
+    }, [props.from])
 
     return (
         <div className="modal" onClick={props.onClose}>
