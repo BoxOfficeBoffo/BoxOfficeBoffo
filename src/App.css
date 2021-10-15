@@ -171,6 +171,19 @@ main {
     ) 1 100%;
 }
 
+.intro h3 {
+  font-weight: normal;
+  color:white;
+  text-align: center;
+  line-height: 1.8rem ;
+  width: 75%;
+  text-shadow: 2px 2px #070670;
+}
+
+.theRules {
+  text-decoration: underline;
+}
+
 .intro p {
   font-weight: normal;
   color:white;
@@ -178,6 +191,11 @@ main {
   line-height: 1.8rem ;
   width: 75%;
   text-shadow: 2px 2px #070670;
+}
+
+.intro li {
+  list-style-type: decimal;
+  color: white;
 }
 
 .fiveStars {

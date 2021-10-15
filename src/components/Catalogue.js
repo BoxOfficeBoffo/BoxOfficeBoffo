@@ -153,7 +153,16 @@ const Catalogue = () => {
                 /> :
                 <div>
                   <div className="intro wrapper">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit quibusdam fugit veniam eos nostrum incidunt, hic iste voluptates atque dignissimos error, tenetur tempora. Quo natus assumenda autem eum rerum perferendis? Rank movies from 1-10!</p>
+                    <h3>This app allows you to create a movie pool to predict the top 10 grossing movies for any given year.</h3><br/>
+                    <p className="theRules">The rules are simple:</p>
+                    <ol>
+                      <li>Select a year of your choice to get 20 summer blockbuster movie options (the top 10 grossing movies are already included!)</li>
+                      <li>Pick 10 movies that you think are the top grossing movies for that particular year</li>
+                      <li>Rank the 10 movies from highest grossing (1) to lowest grossing (10)</li>
+                      <li>Save (lock in) your list.</li>
+                    </ol>
+
+                    <p>You'll have access to all your movie pool list predictions forever!!</p>
                     <img src={fiveStarRating} alt="Five gold stars in an arch" className="fiveStars"/>
                   </div>
                   <div className="catalogueForm wrapper">
