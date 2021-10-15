@@ -287,7 +287,104 @@ i {
   }
 }
 
-/*================================================================================================================
+/*==============================================================================================================
+USER RANK PAGE 
+===============================================================================================================*/
+
+.ranking h3 {
+  text-align: center;
+  margin: 0;
+  padding: 1rem;
+  font-size: 1.8rem;
+  
+}
+
+.displayMovieList {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.movieContainer {
+  display: flex;
+  height: 400px;
+  flex-flow: column wrap;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(1280px / 5);
+  /* padding: 10px 0; */
+  margin: 2rem 0;
+}
+
+.userRankInfo {
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+  height: 350px;
+}
+
+.userRankInfo img {
+  width: calc(900px / 5);
+  padding-top: .50rem;
+  align-self: center;
+}
+
+.movieContainer h5 {
+  font-size: 1.2rem;
+}
+
+.movieContainer form select {
+  display:flex;
+  
+}
+
+.createListPagebuttons button {
+  display:flex;
+  /* flex-direction: row; */
+  /* justify-content: space-between; */
+  
+}
+
+.button {
+  margin:.5rem 1rem;
+  padding: 1rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor:pointer;
+}
+
+.saveListButton {
+  color: white;
+  background-color: green;
+}
+
+.saveListButton:active,
+.saveListButton:hover,
+.saveListButton:focus {
+  background-color: darkgreen;
+}
+
+.newListButton,
+.myListButton {
+  color: #FBD400;
+  background-color: #070670;
+}
+
+.newListButton:active,
+.newListButton:hover,
+.newListButton:focus,
+.myListButton:active,
+.myListButton:hover,
+.myListButton:focus {
+  color: white;
+  background-color: #91CEFF;
+}
+
+
+/*==============================================================================================================
 USER LIST PAGE 
 ================================================================================================================*/
 
