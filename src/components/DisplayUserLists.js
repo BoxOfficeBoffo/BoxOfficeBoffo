@@ -18,8 +18,7 @@ const DisplayUserLists = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setSignedIn(true)
-                userName = user.uid;
-                console.log(userName)
+                userName = user.uid
                 const dbRef = ref(realtime);
                 const theYears = [];
 
